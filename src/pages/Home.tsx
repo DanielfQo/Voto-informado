@@ -203,6 +203,7 @@ const WindyBubble: React.FC<{
 
 const Home: React.FC = () => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const partidoSeleccionado = selectedIndex !== null ? partidos[selectedIndex % partidos.length] : null;
 
   const particles = useMemo(() => Array.from({ length: 30 }).map(() => ({
       left: `${Math.random() * 100}%`,
@@ -247,6 +248,44 @@ const Home: React.FC = () => {
               />
             ))}
           </div>
+          {/*centro*/}
+      {partidoSeleccionado && (
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          style={{
+            marginTop: '0',
+            padding: '2rem',
+            background: 'rgba(255,255,255,0.95)',
+            borderRadius: '20px',
+            maxWidth: '500px',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
+            zIndex: 200,
+            position: 'relative'
+          }}
+        >
+          <div style={{ textAlign: 'center' }}>
+            <img
+              src={partidoSeleccionado.logo}
+              alt={partidoSeleccionado.nombre}
+              style={{ width: '120px', marginBottom: '1rem' }}
+            />
+            <h2>{partidoSeleccionado.nombre}</h2>
+          </div>
+
+          <h3 style={{ marginTop: '1.5rem' }}>Propuestas principales</h3>
+          <ul>
+            {partidoSeleccionado.propuestas.slice(0, 5).map((p) => (
+              <li key={p.id} style={{ marginBottom: '0.75rem' }}>
+                <strong>{p.tema}:</strong> {p.titulo}
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+      )}
         </section>
 
       </div>
