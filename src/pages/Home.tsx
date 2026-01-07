@@ -108,25 +108,63 @@ const WindyBubble: React.FC<{
           padding: '6px',
           overflow: 'visible',
           display: 'flex',
+          flexDirection: 'column',     // 👈 CLAVE
           alignItems: 'center',
           justifyContent: 'center',
-          boxShadow: isSelected ? '0 0 50px rgba(0,0,0,0.3)' : '0 0 15px rgba(148, 163, 184, 0.35)',
+          gap: '6px',                  // espacio imagen-texto
+          boxShadow: isSelected
+            ? '0 0 50px rgba(0,0,0,0.3)'
+            : '0 0 15px rgba(148, 163, 184, 0.35)',
           position: 'absolute',
           cursor: 'pointer',
           pointerEvents: 'auto',
         }}
-        transition={animationState === "falling" ? { type: "spring", stiffness: 80, damping: 15, delay: delay } : undefined}
-        onAnimationComplete={(definition) => { if (definition === "falling") setAnimationState("floating"); }}
-        whileHover={!isSelected ? { scale: 1.25, zIndex: 100, rotate: 0 } : {}}
+        transition={
+          animationState === "falling"
+            ? { type: "spring", stiffness: 80, damping: 15, delay: delay }
+            : undefined
+        }
+        onAnimationComplete={(definition) => {
+          if (definition === "falling") setAnimationState("floating");
+        }}
+        whileHover={!isSelected ? { scale: 1.25, zIndex: 100 } : {}}
       >
-        <img 
-          src={item.logo} 
+        {/* LOGO */}
+        <img
+          src={item.logo}
           alt={item.label}
-          style={{ width: '80%', height: '80%', objectFit: 'contain', pointerEvents: 'none' }}
-          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+          style={{
+            width: '70%',
+            height: '70%',
+            objectFit: 'contain',
+            pointerEvents: 'none',
+          }}
+          onError={(e) => {
+            (e.target as HTMLImageElement).style.display = 'none';
+          }}
         />
-        {!item.logo && <span className="text-[9px] text-black font-bold text-center leading-tight">{item.label}</span>}
+
+        {/* NOMBRE DEL PARTIDO */}
+        {isSelected && (
+          <motion.span
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ type: "spring", stiffness: 160, damping: 14 }}
+            style={{
+              fontSize: '11px',
+              fontWeight: 800,
+              color: '#111827',
+              textAlign: 'center',
+              lineHeight: 1.1,
+              whiteSpace: 'nowrap',
+              pointerEvents: 'none',
+            }}
+          >
+            {item.label}
+          </motion.span>
+        )}
       </motion.div>
+
     </>
   );
 };
