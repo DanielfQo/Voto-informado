@@ -1,20 +1,23 @@
+/* =============================
+   BASE / GENERAL
+============================= */
 .home-container {
+  position: relative; /* para el botón volver y falling-bg */
   max-width: 900px;
   margin: auto;
   padding: 2rem;
   font-family: system-ui, sans-serif;
 }
 
+/* Header de tu vista burbujas */
 .home-header {
   text-align: center;
   margin-bottom: 2.5rem;
 }
-
 .home-header h1 {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
 }
-
 .home-header p {
   color: #555;
 }
@@ -22,95 +25,27 @@
 .section {
   margin-bottom: 2.5rem;
   text-align: center;
-
 }
-
 .section h2 {
   margin-bottom: 1rem;
   font-size: 1.5rem;
 }
 
-.carousel {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-.carousel-btn {
-  font-size: 1.5rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.candidate-card {
-  width: 240px;
-  padding: 1.5rem;
-  background-color: #f4f6f8;
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.candidate-card .symbol {
-  font-size: 3rem;
-  margin-bottom: 0.5rem;
-}
-
-.topics {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-}
-
-.topic {
-  padding: 0.75rem 1.2rem;
-  background-color: #eef2f5;
-  border-radius: 20px;
-  font-size: 0.95rem;
-}
-
-.center {
-  text-align: center;
-}
-
-.primary-btn {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 0.9rem 1.6rem;
-  background-color: #2563eb;
-  color: white;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 500;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.primary-btn:hover {
-  background-color: #1e40af;
-  
-}
-
-/* Home.css */
-
+/* =============================
+   TU VISTA BURBUJAS
+============================= */
 .v-layout {
   position: relative;
-  height: 300px; /* Altura suficiente para que caigan */
+  height: 600px; /* tu layout */
   width: 100%;
   display: flex;
-  justify-content: center; /* Esto define el eje central (X=0) */
+  justify-content: center;
   margin-bottom: 2rem;
 }
 
 .bubble.circle {
-  position: absolute; /* Necesario para que floten */
-  /* NO PONGAS TOP, LEFT, NI MARGINS AQUÍ.
-     Dejaremos que Framer controle la posición exacta. */
-  
-  width: 90px;  /* Un poco más grandes */
+  position: absolute;
+  width: 90px;
   height: 90px;
   border-radius: 50%;
   background: linear-gradient(135deg, #6366f1, #3b82f6);
@@ -124,19 +59,16 @@
   z-index: 10;
 }
 
-/* Textos */
 .bubble .emoji { font-size: 2rem; }
 .bubble .label { font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
-/* --- FONDO ANIMADO (ILUSIÓN DE CAÍDA) --- */
+
+/* Fondo partículas (tu vista) */
 .falling-bg {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   overflow: hidden;
-  z-index: 0; /* Detrás de todo */
-  pointer-events: none; /* Que no estorbe al click */
+  z-index: 0;
+  pointer-events: none;
 }
 
 .particle {
@@ -149,36 +81,212 @@
   animation: wind linear infinite;
 }
 
-
 @keyframes wind {
-  0% {
-    transform: translateY(0);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.5;
-  }
-  90% {
-    opacity: 0.5;
-  }
-  100% {
-    transform: translateY(-120vh);
-    opacity: 0;
-  }
+  0% { transform: translateY(0); opacity: 0; }
+  10% { opacity: 0.5; }
+  90% { opacity: 0.5; }
+  100% { transform: translateY(-120vh); opacity: 0; }
 }
 
-.falling-bg {
+/* =============================
+   VISTA SITUACIÓN ACTUAL (MICHAEL)
+   Prefijada para NO chocar
+============================= */
+.situacion-home{
+  margin:0;
+  padding:0;
+  background:#e6f1fb;
+  overflow-x:hidden;
+}
+
+/* Fondo general */
+.situacion-globalBackground{
+  position:fixed;
+  inset:0;
+  background: radial-gradient(circle at top,#00e5ff22,#000 70%);
+  z-index:-1;
+}
+
+/* Carrusel */
+.situacion-carousel{
+  height:50vh;
+  width:100vw;
+}
+
+.situacion-slide{
+  position:relative;
+  height:50vh;
+  width:100vw;
+  border-radius: 25px;
+  overflow:hidden;
+}
+
+.situacion-slide img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter: brightness(0.6) sepia(1) hue-rotate(190deg) saturate(4);
+  transition: 0.8s ease;
+}
+
+.situacion-slide:hover img{
+  filter:none;
+}
+
+.situacion-slideText{
+  position:absolute;
+  bottom:50px;
+  left:60px;
+  color:white;
+  font-size:2.6rem;
+  font-weight:600;
+  text-shadow:0 0 25px rgba(0,0,0,.8);
+}
+
+/* Panel zone con fondo */
+.situacion-panelZone{
+  position: relative;
+  padding: 60px 30px;
+  margin-top: 30px;
+  border-radius: 35px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,.5);
+  background:#e6f1fb;
+}
+
+/* Imagen de fondo */
+.situacion-panelZone::before {
+  content: "";
   position: absolute;
   inset: 0;
+  background: url("/Images/fondos/panel-bg.png") center/cover no-repeat;
+  opacity: 0.95;
+  filter: saturate(1.2);
+  z-index: 0;
+}
+
+.situacion-panelZone::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(6px);
   z-index: 1;
-  overflow: hidden;
 }
 
-.v-layout:has(.bubble-active) .bubble:not(.bubble-active) {
-  opacity: 0.25;
-  pointer-events: none;
-  filter: blur(1px);
+.situacion-panelZone > * {
+  position: relative;
+  z-index: 2;
 }
 
+/* Temas */
+.situacion-temas{
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  margin-top:40px;
+}
 
+.situacion-temas button{
+  border:none;
+  padding:14px 40px;
+  font-size:1.1rem;
+  border-radius:30px;
+  cursor:pointer;
+  background:white;
+  box-shadow:0 10px 25px rgba(0,0,0,.15);
+  transition:.3s;
+}
 
+.situacion-temas button:hover{ transform:scale(1.05); }
+
+.situacion-temas .activo{
+  background:#003b73;
+  color:white;
+}
+
+/* Timeline */
+.situacion-timeline{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:20px;
+  margin-top:30px;
+  font-weight:600;
+}
+
+/* Panel chart */
+.situacion-panel{
+  width:85%;
+  margin:40px auto;
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 15px 40px rgba(0,0,0,.2);
+}
+
+/* Tooltip */
+.tooltipBox {
+  padding: 12px 18px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 15px;
+  backdrop-filter: blur(6px);
+  background: rgba(10, 15, 25, 0.85);
+  box-shadow: 0 0 25px rgba(0,0,0,.7);
+  animation: floatTooltip .6s ease;
+}
+
+.tooltipBox.pos{
+  color: #00ff9c;
+  border: 2px solid #00ff9c;
+  box-shadow: 0 0 20px rgba(0,255,156,.7), 0 0 40px rgba(0,255,156,.25);
+}
+
+.tooltipBox.neg{
+  color: #ff3b3b;
+  border: 2px solid #ff3b3b;
+  box-shadow: 0 0 20px rgba(255,59,59,.7), 0 0 40px rgba(255,59,59,.25);
+}
+
+@keyframes floatTooltip {
+  from { transform: translateY(10px) scale(.9); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* Flecha desbloqueo */
+.situacion-unlockArrow{
+  width:60px;height:60px;
+  margin:20px auto 0;
+  border:2px solid #00e5ff;
+  border-radius:50%;
+  display:grid;place-items:center;
+  cursor:pointer;
+  animation:pulse 2s infinite;
+}
+
+.situacion-unlockArrow span{
+  width:18px;height:18px;
+  border-left:3px solid #00e5ff;
+  border-bottom:3px solid #00e5ff;
+  transform:rotate(-45deg);
+}
+
+.situacion-unlockArrow.open{transform:rotate(180deg)}
+
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 0 #00e5ff}
+  50%{box-shadow:0 0 18px #00e5ff}
+}
+
+/* zona candidatos */
+.situacion-candidatosZone{
+  max-height:0;
+  overflow:hidden;
+  transition:.8s ease;
+  text-align:center;
+}
+
+.situacion-candidatosZone.show{
+  max-height:800px; /* subí por si tu zona de burbujas necesita más */
+  padding:40px;
+}
