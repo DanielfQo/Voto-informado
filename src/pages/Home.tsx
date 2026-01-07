@@ -2,6 +2,11 @@ import React, { useState, useMemo } from 'react';
 import '../styles/Home.css';
 import { motion } from 'framer-motion';
 import { partidos } from '../data/data'; 
+import AddCandidateBubble from "../components/AddCandidateBubble"
+import CandidateDetail from "../components/CandidateDetail"
+import ComparisonModal from "../components/ComparisonModal"
+
+
 
 // --- CONFIGURACIÓN DE POSICIONES (COLUMNAS LATERALES) ---
 const positions = [
@@ -128,7 +133,12 @@ const WindyBubble: React.FC<{
 const Home: React.FC = () => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [selectedSubBola, setSelectedSubBola] = useState<string | null>(null);
+  const [isAddingSecond, setIsAddingSecond] = useState(false);
+  const [secondIndex, setSecondIndex] = useState<number | null>(null);
+
   const partidoSeleccionado = selectedIndex !== null ? partidos[selectedIndex % partidos.length] : null;
+  const partidoSegundo = secondIndex !== null ? partidos[secondIndex % partidos.length] : null;
+
 
   const particles = useMemo(() => Array.from({ length: 30 }).map(() => ({
       left: `${Math.random() * 100}%`,
@@ -137,9 +147,20 @@ const Home: React.FC = () => {
   })), []);
 
   const handleBubbleClick = (i: number) => {
-    setSelectedIndex(prev => prev === i ? null : i);
+    if (isAddingSecond && selectedIndex !== null) {
+      if (i !== selectedIndex) {
+        setSecondIndex(i);
+        setIsAddingSecond(false);
+        setSelectedSubBola(null);
+      }
+      return;
+    }
+    setSelectedIndex(prev => (prev === i ? null : i));
     setSelectedSubBola(null);
+    setSecondIndex(null); // si cambias principal, reinicia el segundo
+    setIsAddingSecond(false);
   };
+
 
   return (
     <div className="home-container">
@@ -159,20 +180,49 @@ const Home: React.FC = () => {
           <h2 style={{ textAlign: 'center', marginBottom: '1rem' }}>Partidos en contienda</h2>
           
           {/* Columnas de candidatos */}
-          <div className="v-layout" style={{ position: 'relative', height: '600px', marginBottom: '-500px', zIndex: 50 }}>
+          <div
+            className="v-layout"
+            style={{ position: "relative", height: "600px", marginBottom: "-500px", zIndex: 50 }}
+          >
             {bubbleItems.map((item, i) => (
-              <WindyBubble 
-                key={i} 
-                item={item} 
-                delay={i * 0.15} 
+              <WindyBubble
+                key={i}
+                item={item}
+                delay={i * 0.15}
                 isSelected={selectedIndex === i}
-                onSelect={() => handleBubbleClick(i)} 
+                onSelect={() => handleBubbleClick(i)}
               />
             ))}
-          </div>
 
+            {/* SOLO el botón + cuando hay seleccionado */}
+            {selectedIndex !== null && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ type: "spring", stiffness: 160, damping: 14 }}
+                style={{
+                  position: "absolute",
+                  left: "45%",
+                  top: 80, // <-- MISMA altura que variants.selected.y
+                  transform: "translateX(-50%)",
+                  zIndex: 200,
+                  pointerEvents: "auto",
+                }}
+              >
+                {/* a la derecha del circulo grande */}
+                <motion.div style={{ transform: "translate(150px, 20px)" }}>
+                    <AddCandidateBubble
+                      active={isAddingSecond}
+                      onClick={() => {
+                        if (selectedIndex !== null) setIsAddingSecond((v) => !v);
+                      }}
+                    />
+                  </motion.div>
+              </motion.div>
+            )}
+          </div>
           {/* Sub-bolas centrales */}
-          {partidoSeleccionado && (
+          {partidoSeleccionado && secondIndex === null && (
             <div style={{ display: 'flex', justifyContent: 'center', marginTop: '200px', gap: '20px', zIndex: 200, position: 'relative' }}>
               {subBolas.map((s, idx) => (
                 <motion.div
@@ -202,9 +252,21 @@ const Home: React.FC = () => {
               ))}
             </div>
           )}
+          {/* COMPARACIÓN (centrado en pantalla) */}
+          <ComparisonModal
+            open={!!(partidoSeleccionado && partidoSegundo)}
+            left={partidoSeleccionado}
+            right={partidoSegundo}
+            onClose={() => {
+              setSecondIndex(null)
+              setIsAddingSecond(false)
+            }}
+          />
+
+
 
           {/* Información del candidato según sub-bola */}
-          {partidoSeleccionado && selectedSubBola && (
+          {partidoSeleccionado && secondIndex === null && selectedSubBola && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
