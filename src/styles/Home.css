@@ -117,6 +117,42 @@
   transform:scale(1.05);
 }
 
+/* ───────── TOOLTIP FLOATING ───────── */
+.tooltipBox {
+  padding: 12px 18px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 15px;
+  backdrop-filter: blur(6px);
+  background: rgba(10, 15, 25, 0.85);
+  box-shadow: 0 0 25px rgba(0,0,0,.7);
+  animation: floatTooltip .6s ease;
+}
+
+/* VERDE */
+.tooltipBox.pos {
+  color: #00ff9c;
+  border: 2px solid #00ff9c;
+  box-shadow:
+    0 0 20px rgba(0,255,156,.7),
+    0 0 40px rgba(0,255,156,.25);
+}
+
+/* ROJO */
+.tooltipBox.neg {
+  color: #ff3b3b;
+  border: 2px solid #ff3b3b;
+  box-shadow:
+    0 0 20px rgba(255,59,59,.7),
+    0 0 40px rgba(255,59,59,.25);
+}
+
+@keyframes floatTooltip {
+  from { transform: translateY(10px) scale(.9); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+
 /* ───────── PANEL ZONE CON FONDO ───────── */
 .panelZone {
   position: relative;

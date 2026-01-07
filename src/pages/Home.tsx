@@ -128,16 +128,21 @@ export default function Home() {
 
               <XAxis dataKey="year" stroke="#aaa" />
               <YAxis stroke="#aaa" />
-              <Tooltip content={({ payload, label }) => {
-                if (!payload || !payload.length) return null
-                const v = payload[0].value
-                const pos = v >= 0
-                return (
-                  <div className={pos ? "tooltipPos" : "tooltipNeg"}>
-                    {label}: {v}%
-                  </div>
-                )
-              }} />
+              <Tooltip
+                wrapperStyle={{ zIndex: 9999 }}
+                content={({ payload, label }) => {
+                  if (!payload || !payload.length) return null
+                  const v = payload[0].value
+                  const positive = v >= 0
+
+                  return (
+                    <div className={`tooltipBox ${positive ? "pos" : "neg"}`}>
+                      {label}: {v}%
+                    </div>
+                  )
+                }}
+              />
+
 
               <Line type="monotone" dataKey="value" stroke="#00e5ff"
                 strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 8 }}
