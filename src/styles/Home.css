@@ -1,0 +1,129 @@
+.home-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
+  font-family: system-ui, sans-serif;
+}
+
+.home-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.home-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.home-header p {
+  color: #555;
+}
+
+.section {
+  margin-bottom: 2.5rem;
+  text-align: center;
+  
+}
+
+.section h2 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.carousel-btn {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.candidate-card {
+  width: 240px;
+  padding: 1.5rem;
+  background-color: #f4f6f8;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.candidate-card .symbol {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.topic {
+  padding: 0.75rem 1.2rem;
+  background-color: #eef2f5;
+  border-radius: 20px;
+  font-size: 0.95rem;
+}
+
+.center {
+  text-align: center;
+}
+
+.primary-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.9rem 1.6rem;
+  background-color: #2563eb;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.primary-btn:hover {
+  background-color: #1e40af;
+  
+}
+
+/* Home.css */
+
+.v-layout {
+  position: relative;
+  height: 300px; /* Altura suficiente para que caigan */
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Esto define el eje central (X=0) */
+  margin-bottom: 2rem;
+}
+
+.bubble.circle {
+  position: absolute; /* Necesario para que floten */
+  /* NO PONGAS TOP, LEFT, NI MARGINS AQUÍ.
+     Dejaremos que Framer controle la posición exacta. */
+  
+  width: 90px;  /* Un poco más grandes */
+  height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #3b82f6);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* Textos */
+.bubble .emoji { font-size: 2rem; }
+.bubble .label { font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
