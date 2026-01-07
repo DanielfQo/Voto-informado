@@ -2,8 +2,8 @@ const partidos = [
   {
     id: "accion-popular",
     nombre: "Acción Popular",
-    logo: "logos/accion-popular.png",
-    fuente: "Plan de Gobierno Acción Popular 2021–2026 (JNE)",
+    logo: "/logos/accion-popular.png",
+    fuente: "Plan de Gobierno Acción Popular 2021-2026 (JNE)",
     propuestas: [
 
       {
@@ -16,7 +16,7 @@ const partidos = [
         problema:
           "Alta informalidad, falta de financiamiento y dependencia de créditos con tasas elevadas.",
         fuente:
-          "Plan de Gobierno AP 2021–2026, sección Reactivación Económica y Empleo."
+          "Plan de Gobierno AP 2021-2026, sección Reactivación Económica y Empleo."
       },
 
       {
@@ -29,7 +29,7 @@ const partidos = [
         problema:
           "El 75% de la economía peruana opera de manera informal.",
         fuente:
-          "Plan de Gobierno AP 2021–2026, Objetivos Nacionales."
+          "Plan de Gobierno AP 2021-2026, Objetivos Nacionales."
       },
 
       {
@@ -42,7 +42,7 @@ const partidos = [
         problema:
           "Sistema de salud reactivo y saturación de hospitales.",
         fuente:
-          "Plan de Gobierno AP 2021–2026, sección Salud."
+          "Plan de Gobierno AP 2021-2026, sección Salud."
       },
 
       {
@@ -55,7 +55,7 @@ const partidos = [
         problema:
           "Desigualdad territorial en el acceso a servicios de salud.",
         fuente:
-          "Plan de Gobierno AP 2021–2026, sección Innovación en Salud."
+          "Plan de Gobierno AP 2021-2026, sección Innovación en Salud."
       },
 
       {
@@ -68,7 +68,7 @@ const partidos = [
         problema:
           "Deterioro de la calidad educativa e infraestructura deficiente.",
         fuente:
-          "Plan de Gobierno AP 2021–2026, sección Revolución de la Educación."
+          "Plan de Gobierno AP 2021-2026, sección Revolución de la Educación."
       },
 
       {
@@ -81,7 +81,7 @@ const partidos = [
         problema:
           "Desigualdad en la calidad de la enseñanza y falta de incentivos docentes.",
         fuente:
-          "Plan de Gobierno AP 2021–2026, sección Educación."
+          "Plan de Gobierno AP 2021-2026, sección Educación."
       },
 
       {
@@ -94,7 +94,7 @@ const partidos = [
         problema:
           "Abuso de posición dominante y altos precios en productos esenciales.",
         fuente:
-          "Plan de Gobierno AP 2021–2026, sección Libre Competencia."
+          "Plan de Gobierno AP 2021-2026, sección Libre Competencia."
       },
 
       {
@@ -107,7 +107,7 @@ const partidos = [
         problema:
           "Pérdida de confianza ciudadana y corrupción estructural.",
         fuente:
-          "Plan de Gobierno AP 2021–2026, Principios AMA SUA, AMA LLULLA, AMA QUELLA."
+          "Plan de Gobierno AP 2021-2026, Principios AMA SUA, AMA LLULLA, AMA QUELLA."
       }
 
     ]
@@ -116,7 +116,7 @@ const partidos = [
   {
   id: "fuerza-popular",
   nombre: "Fuerza Popular",
-  logo: "logos/fuerza-popular.png",
+  logo: "/logos/fuerza-popular.png",
   propuestas: [
 
     // ===================== SALUD =====================
@@ -127,7 +127,7 @@ const partidos = [
       tipo: "Concreta",
       explicacion: "El plan de gobierno propone reforzar el primer nivel de atención en salud como eje del sistema sanitario, priorizando centros de salud, postas médicas y atención preventiva, con el objetivo de reducir la sobrecarga hospitalaria.",
       problema: "Sistema de salud centrado en atención reactiva y colapso hospitalario",
-      fuente: "Plan de Gobierno Fuerza Popular – Eje Salud"
+      fuente: "Plan de Gobierno Fuerza Popular - Eje Salud"
     },
     {
       id: "fp-salud-2",
@@ -136,7 +136,7 @@ const partidos = [
       tipo: "Concreta",
       explicacion: "Se plantea mejorar y ampliar la infraestructura hospitalaria, incluyendo equipamiento médico y capacidad de atención, como respuesta a las deficiencias evidenciadas durante la pandemia.",
       problema: "Déficit de infraestructura hospitalaria y equipamiento médico",
-      fuente: "Plan de Gobierno Fuerza Popular – Eje Salud"
+      fuente: "Plan de Gobierno Fuerza Popular - Eje Salud"
     },
     {
       id: "fp-salud-3",
@@ -145,7 +145,7 @@ const partidos = [
       tipo: "Promesa",
       explicacion: "El plan establece como objetivo general el rescate del sistema de salud pública, buscando cerrar brechas históricas de acceso y calidad, sin detallar mecanismos específicos de implementación en todos los niveles.",
       problema: "Brechas estructurales en el acceso a servicios de salud",
-      fuente: "Plan de Gobierno Fuerza Popular – Rescate del Estado"
+      fuente: "Plan de Gobierno Fuerza Popular - Rescate del Estado"
     },
 
     // ===================== ECONOMÍA =====================
@@ -156,7 +156,7 @@ const partidos = [
       tipo: "Promesa",
       explicacion: "Fuerza Popular propone impulsar la reactivación económica como prioridad nacional, enfocándose en la recuperación del empleo y el crecimiento productivo tras la crisis sanitaria.",
       problema: "Crisis económica y pérdida masiva de empleos",
-      fuente: "Plan de Gobierno Fuerza Popular – Eje Económico"
+      fuente: "Plan de Gobierno Fuerza Popular - Eje Económico"
     },
     {
       id: "fp-econ-2",
@@ -165,7 +165,7 @@ const partidos = [
       tipo: "Concreta",
       explicacion: "El plan reafirma el compromiso con la economía social de mercado y la estabilidad macroeconómica, promoviendo disciplina fiscal, respeto a la Constitución y estabilidad monetaria.",
       problema: "Riesgo de inestabilidad económica y desconfianza en la inversión",
-      fuente: "Plan de Gobierno Fuerza Popular – Principios Económicos"
+      fuente: "Plan de Gobierno Fuerza Popular - Principios Económicos"
     },
     {
       id: "fp-econ-3",
@@ -174,7 +174,7 @@ const partidos = [
       tipo: "Promesa",
       explicacion: "Se plantea incentivar la inversión privada como motor del crecimiento económico, sin detallar instrumentos específicos de incentivo o regulación.",
       problema: "Baja inversión y desaceleración económica",
-      fuente: "Plan de Gobierno Fuerza Popular – Eje Económico"
+      fuente: "Plan de Gobierno Fuerza Popular - Eje Económico"
     },
 
     // ===================== EDUCACIÓN =====================
@@ -185,7 +185,7 @@ const partidos = [
       tipo: "Promesa",
       explicacion: "El plan propone mejorar la calidad educativa a nivel nacional, enfocándose en aprendizajes fundamentales y reducción de brechas, sin detallar acciones concretas en todos los niveles.",
       problema: "Bajo rendimiento educativo y brechas de aprendizaje",
-      fuente: "Plan de Gobierno Fuerza Popular – Eje Educación"
+      fuente: "Plan de Gobierno Fuerza Popular - Eje Educación"
     },
     {
       id: "fp-edu-2",
@@ -194,7 +194,7 @@ const partidos = [
       tipo: "Concreta",
       explicacion: "Se plantea fortalecer la carrera docente mediante capacitación y reconocimiento al mérito, como eje para mejorar la calidad educativa.",
       problema: "Débil formación continua del personal docente",
-      fuente: "Plan de Gobierno Fuerza Popular – Eje Educación"
+      fuente: "Plan de Gobierno Fuerza Popular - Eje Educación"
     }
 
   ]
@@ -203,7 +203,7 @@ const partidos = [
   {
     id: "partido-morado",
     nombre: "Partido Morado",
-    logo: "logos/partido-morado.png",
+    logo: "/logos/partido-morado.png",
     propuestas: [
       {
         id: 5,
@@ -227,7 +227,7 @@ const partidos = [
   {
     id: "alianza-progreso",
     nombre: "Alianza para el Progreso",
-    logo: "logos/alianza-progreso.png",
+    logo: "/logos/alianza-progreso.png",
     propuestas: [
       {
         id: 7,
@@ -251,7 +251,7 @@ const partidos = [
   {
     id: "juntos-por-el-peru",
     nombre: "Juntos por el Perú",
-    logo: "logos/juntos-por-el-peru.png",
+    logo: "/logos/juntos-por-el-peru.png",
     propuestas: [
       {
         id: 9,
@@ -275,7 +275,7 @@ const partidos = [
   {
     id: "renovacion-popular",
     nombre: "Renovación Popular",
-    logo: "logos/renovacion-popular.png",
+    logo: "/logos/renovacion-popular.png",
     propuestas: [
       {
         id: 11,
@@ -298,7 +298,7 @@ const partidos = [
     {
     id: "fe-en-el-peru",
     nombre: "Fe en el Perú",
-    logo: "logos/fe-en-el-peru.png",
+    logo: "/logos/fe-en-el-peru.png",
     propuestas: [
       { id: 13, tema: "Economía", titulo: "Formalización y MYPE", tipo: "Concreta",
         explicacion: "Simplificar trámites y facilitar formalización para microempresas.",
@@ -312,7 +312,7 @@ const partidos = [
   {
     id: "ciudadanos-por-el-peru",
     nombre: "Partido Ciudadanos por el Perú",
-    logo: "logos/ciudadanos-por-el-peru.png",
+    logo: "/logos/ciudadanos-por-el-peru.png",
     propuestas: [
       { id: 15, tema: "Educación", titulo: "Infraestructura escolar", tipo: "Promesa",
         explicacion: "Mejorar y ampliar colegios con enfoque en regiones.",
@@ -326,7 +326,7 @@ const partidos = [
   {
     id: "somos-peru",
     nombre: "Partido Democrático Somos Perú",
-    logo: "logos/somos-peru.png",
+    logo: "/logos/somos-peru.png",
     propuestas: [
       { id: 17, tema: "Salud", titulo: "Reducir colas en hospitales", tipo: "Concreta",
         explicacion: "Gestión de citas y refuerzo de turnos en hospitales públicos.",
@@ -340,7 +340,7 @@ const partidos = [
   {
     id: "frepap-fia",
     nombre: "Frente Popular Agrícola FIA del Perú",
-    logo: "logos/frepap-fia.png",
+    logo: "/logos/frepap-fia.png",
     propuestas: [
       { id: 19, tema: "Economía", titulo: "Impulso a agricultura familiar", tipo: "Concreta",
         explicacion: "Apoyo técnico y acceso a mercados para pequeños agricultores.",
@@ -354,7 +354,7 @@ const partidos = [
   {
     id: "obras",
     nombre: "Partido Cívico Obras",
-    logo: "logos/obras.png",
+    logo: "/logos/obras.png",
     propuestas: [
       { id: 21, tema: "Economía", titulo: "Obras rápidas locales", tipo: "Concreta",
         explicacion: "Priorizar proyectos cortos con impacto en empleo local.",
@@ -368,7 +368,7 @@ const partidos = [
   {
     id: "frente-esperanza-2021",
     nombre: "Partido Frente de la Esperanza 2021",
-    logo: "logos/frente-esperanza-2021.png",
+    logo: "/logos/frente-esperanza-2021.png",
     propuestas: [
       { id: 23, tema: "Salud", titulo: "Salud mental comunitaria", tipo: "Concreta",
         explicacion: "Fortalecer centros comunitarios de apoyo psicológico.",

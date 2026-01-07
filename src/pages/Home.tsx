@@ -65,10 +65,10 @@ const WindyBubble: React.FC<{
         transition: {
           duration: windParams.duration,
           repeat: Infinity,
-          repeatType: "mirror" as const,
-          ease: "easeInOut" as const,
+          repeatType: "mirror",
+          ease: "easeInOut",
           delay: i * 0.05 
-        }
+        } as any
       };
     }
   };
