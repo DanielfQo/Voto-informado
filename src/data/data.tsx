@@ -1,4 +1,4 @@
-const partidos = [
+export const partidos = [
   {
     id: "accion-popular",
     nombre: "Acción Popular",
