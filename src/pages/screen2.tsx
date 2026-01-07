@@ -1,13 +1,48 @@
-import { Link } from 'react-router-dom'
+import { useState } from "react"
+import { partidos } from "../data/data"
 
-const Screen1: React.FC = () => {
+const Screen2: React.FC = () => {
+  const [partidoSeleccionado, setPartidoSeleccionado] = useState<
+    typeof partidos[number] | null
+  >(null)
+
   return (
-    <div>
-      <h1>Pantalla 2</h1>
+    <div style={{ padding: "2rem" }}>
+      <h1>Información del candidato</h1>
 
-      <Link to="/">Volver al menú principal</Link>
+      {/*simular las bolitas*/}
+      <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
+        {partidos.map((p) => (
+          <button key={p.id} onClick={() => setPartidoSeleccionado(p)}>
+            {p.nombre}
+          </button>
+        ))}
+      </div>
+
+      {/*centro*/}
+      {!partidoSeleccionado ? (
+        <p>Selecciona un candidato</p>
+      ) : (
+        <div>
+          <h2>{partidoSeleccionado.nombre}</h2>
+          <img
+            src={partidoSeleccionado.logo}
+            alt={partidoSeleccionado.nombre}
+            width={120}
+          />
+
+          <h3>Propuestas</h3>
+          <ul>
+            {partidoSeleccionado.propuestas.map((prop) => (
+              <li key={prop.id}>
+                <strong>{prop.tema}:</strong> {prop.titulo}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   )
 }
 
-export default Screen1
+export default Screen2
