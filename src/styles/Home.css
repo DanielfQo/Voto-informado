@@ -22,7 +22,7 @@
 .section {
   margin-bottom: 2.5rem;
   text-align: center;
-  
+
 }
 
 .section h2 {
@@ -127,3 +127,49 @@
 /* Textos */
 .bubble .emoji { font-size: 2rem; }
 .bubble .label { font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
+/* --- FONDO ANIMADO (ILUSIÓN DE CAÍDA) --- */
+.falling-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0; /* Detrás de todo */
+  pointer-events: none; /* Que no estorbe al click */
+}
+
+.particle {
+  position: absolute;
+  bottom: -10vh;
+  background: rgba(0, 0, 0, 0.15);
+  width: 2px;
+  height: 80px;
+  border-radius: 4px;
+  animation: wind linear infinite;
+}
+
+
+@keyframes wind {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-120vh);
+    opacity: 0;
+  }
+}
+
+.falling-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+}
