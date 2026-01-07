@@ -1,117 +1,136 @@
 export const partidos = [
   {
-    id: "accion-popular",
-    nombre: "Acción Popular",
-    logo: "/logos/accion-popular.png",
-    fuente: "Plan de Gobierno Acción Popular 2021-2026 (JNE)",
-    propuestas: [
+  id: "accion-popular",
+  nombre: "Acción Popular",
+  logo: "/logos/accion-popular.png",
+  fuente: "Plan de Gobierno Acción Popular 2021-2026 (JNE)",
 
-      {
-        id: 1,
-        tema: "Economía",
-        titulo: "Créditos accesibles para MYPES",
-        tipo: "Concreta",
-        explicacion:
-          "Otorgar créditos baratos a las micro y pequeñas empresas mediante mecanismos de mercado, priorizando a las MYPES como motor principal de la economía nacional.",
-        problema:
-          "Alta informalidad, falta de financiamiento y dependencia de créditos con tasas elevadas.",
-        fuente:
-          "Plan de Gobierno AP 2021-2026, sección Reactivación Económica y Empleo."
-      },
+  // 🟠 1. PROPUESTAS
+  propuestas: [
+    {
+      id: 1,
+      tema: "Economía",
+      titulo: "Créditos accesibles para MYPES",
+      tipo: "Concreta",
+      explicacion:
+        "Otorgar créditos baratos a las micro y pequeñas empresas mediante mecanismos de mercado, priorizando a las MYPES como motor principal de la economía nacional.",
+      problema:
+        "Alta informalidad, falta de financiamiento y dependencia de créditos con tasas elevadas.",
+      fuente:
+        "Plan de Gobierno AP 2021-2026, sección Reactivación Económica y Empleo."
+    },
+    {
+      id: 2,
+      tema: "Economía",
+      titulo: "Reducción de la informalidad económica",
+      tipo: "Concreta",
+      explicacion:
+        "Reducir la informalidad económica mediante incentivos y facilidades para la formalización, en lugar de sanciones, con la meta de reducirla al 30% en cinco años.",
+      problema:
+        "El 75% de la economía peruana opera de manera informal.",
+      fuente:
+        "Plan de Gobierno AP 2021-2026, Objetivos Nacionales."
+    },
+    {
+      id: 3,
+      tema: "Salud",
+      titulo: "Fortalecimiento de la atención primaria en salud",
+      tipo: "Concreta",
+      explicacion:
+        "Potenciar centros de atención primaria, postas médicas y prevención de enfermedades para evitar la congestión hospitalaria.",
+      problema:
+        "Sistema de salud reactivo y saturación de hospitales.",
+      fuente:
+        "Plan de Gobierno AP 2021-2026, sección Salud."
+    },
+    {
+      id: 4,
+      tema: "Salud",
+      titulo: "Implementación de telemedicina a nivel nacional",
+      tipo: "Promesa",
+      explicacion:
+        "Desarrollar telemedicina, historia clínica electrónica e interconexión digital para reducir brechas de acceso en zonas alejadas.",
+      problema:
+        "Desigualdad territorial en el acceso a servicios de salud.",
+      fuente:
+        "Plan de Gobierno AP 2021-2026, sección Innovación en Salud."
+    },
+    {
+      id: 5,
+      tema: "Educación",
+      titulo: "Incremento de la inversión en educación pública",
+      tipo: "Promesa",
+      explicacion:
+        "Aumentar progresivamente la inversión educativa hasta el 10% del PBI, siguiendo estándares de países de la OECD.",
+      problema:
+        "Deterioro de la calidad educativa e infraestructura deficiente.",
+      fuente:
+        "Plan de Gobierno AP 2021-2026, sección Revolución de la Educación."
+    },
+    {
+      id: 6,
+      tema: "Educación",
+      titulo: "Capacitación y meritocracia docente",
+      tipo: "Concreta",
+      explicacion:
+        "Implementar capacitación continua y meritocracia docente, con mejores remuneraciones e incentivos basados en desempeño.",
+      problema:
+        "Desigualdad en la calidad de la enseñanza y falta de incentivos docentes.",
+      fuente:
+        "Plan de Gobierno AP 2021-2026, sección Educación."
+    },
+    {
+      id: 7,
+      tema: "Economía",
+      titulo: "Control de monopolios y oligopolios",
+      tipo: "Concreta",
+      explicacion:
+        "Reactivar el control previo de fusiones empresariales para proteger la libre competencia y a los consumidores.",
+      problema:
+        "Abuso de posición dominante y altos precios en productos esenciales.",
+      fuente:
+        "Plan de Gobierno AP 2021-2026, sección Libre Competencia."
+    },
+    {
+      id: 8,
+      tema: "Gobernanza",
+      titulo: "Lucha frontal contra la corrupción",
+      tipo: "Promesa",
+      explicacion:
+        "Reforzar mecanismos de control, transparencia y gobierno abierto para reducir la corrupción en el Estado.",
+      problema:
+        "Pérdida de confianza ciudadana y corrupción estructural.",
+      fuente:
+        "Plan de Gobierno AP 2021-2026, Principios AMA SUA, AMA LLULLA, AMA QUELLA."
+    }
+  ],
 
-      {
-        id: 2,
-        tema: "Economía",
-        titulo: "Reducción de la informalidad económica",
-        tipo: "Concreta",
-        explicacion:
-          "Reducir la informalidad económica mediante incentivos y facilidades para la formalización, en lugar de sanciones, con la meta de reducirla al 30% en cinco años.",
-        problema:
-          "El 75% de la economía peruana opera de manera informal.",
-        fuente:
-          "Plan de Gobierno AP 2021-2026, Objetivos Nacionales."
-      },
+  // 🔵 2. NOTICIAS
+  noticias: [
+    {
+      id: "ap-n1",
+      titulo: "Acción Popular se reorganiza de cara a las elecciones 2026",
+      resumen:
+        "Dirigentes del partido anunciaron cambios internos y renovación de cuadros políticos.",
+      fuente: "El Comercio"
+    }
+  ],
 
-      {
-        id: 3,
-        tema: "Salud",
-        titulo: "Fortalecimiento de la atención primaria en salud",
-        tipo: "Concreta",
-        explicacion:
-          "Potenciar centros de atención primaria, postas médicas y prevención de enfermedades para evitar la congestión hospitalaria.",
-        problema:
-          "Sistema de salud reactivo y saturación de hospitales.",
-        fuente:
-          "Plan de Gobierno AP 2021-2026, sección Salud."
-      },
+  // 🟢 3. VISIÓN
+  vision:
+    "Construir un Estado democrático, descentralizado y transparente, donde el desarrollo económico esté acompañado de justicia social y fortalecimiento institucional.",
 
-      {
-        id: 4,
-        tema: "Salud",
-        titulo: "Implementación de telemedicina a nivel nacional",
-        tipo: "Promesa",
-        explicacion:
-          "Desarrollar telemedicina, historia clínica electrónica e interconexión digital para reducir brechas de acceso en zonas alejadas.",
-        problema:
-          "Desigualdad territorial en el acceso a servicios de salud.",
-        fuente:
-          "Plan de Gobierno AP 2021-2026, sección Innovación en Salud."
-      },
+  // 🟣 4. FUTURO
+  futuro:
+    "Acción Popular plantea un Perú con crecimiento sostenible, reducción de la informalidad y servicios públicos de calidad, priorizando educación, salud y lucha contra la corrupción.",
 
-      {
-        id: 5,
-        tema: "Educación",
-        titulo: "Incremento de la inversión en educación pública",
-        tipo: "Promesa",
-        explicacion:
-          "Aumentar progresivamente la inversión educativa hasta el 10% del PBI, siguiendo estándares de países de la OECD.",
-        problema:
-          "Deterioro de la calidad educativa e infraestructura deficiente.",
-        fuente:
-          "Plan de Gobierno AP 2021-2026, sección Revolución de la Educación."
-      },
-
-      {
-        id: 6,
-        tema: "Educación",
-        titulo: "Capacitación y meritocracia docente",
-        tipo: "Concreta",
-        explicacion:
-          "Implementar capacitación continua y meritocracia docente, con mejores remuneraciones e incentivos basados en desempeño.",
-        problema:
-          "Desigualdad en la calidad de la enseñanza y falta de incentivos docentes.",
-        fuente:
-          "Plan de Gobierno AP 2021-2026, sección Educación."
-      },
-
-      {
-        id: 7,
-        tema: "Economía",
-        titulo: "Control de monopolios y oligopolios",
-        tipo: "Concreta",
-        explicacion:
-          "Reactivar el control previo de fusiones empresariales para proteger la libre competencia y a los consumidores.",
-        problema:
-          "Abuso de posición dominante y altos precios en productos esenciales.",
-        fuente:
-          "Plan de Gobierno AP 2021-2026, sección Libre Competencia."
-      },
-
-      {
-        id: 8,
-        tema: "Gobernanza",
-        titulo: "Lucha frontal contra la corrupción",
-        tipo: "Promesa",
-        explicacion:
-          "Reforzar mecanismos de control, transparencia y gobierno abierto para reducir la corrupción en el Estado.",
-        problema:
-          "Pérdida de confianza ciudadana y corrupción estructural.",
-        fuente:
-          "Plan de Gobierno AP 2021-2026, Principios AMA SUA, AMA LLULLA, AMA QUELLA."
-      }
-
-    ]
-  },
+  // 🔴 5. REDES
+  redes: {
+    facebook: "https://www.facebook.com/AccionPopularOficial",
+    twitter: "https://twitter.com/AccionPopular",
+    instagram: "https://www.instagram.com/accionpopular"
+  }
+},
 
   {
   id: "fuerza-popular",
@@ -197,7 +216,33 @@ export const partidos = [
       fuente: "Plan de Gobierno Fuerza Popular - Eje Educación"
     }
 
-  ]
+  ],
+
+  // 🔵 2. NOTICIAS
+  noticias: [
+    {
+      id: "fp-n1",
+      titulo: "Fuerza Popular se reorganiza de cara a las elecciones 2026",
+      resumen:
+        "Dirigentes del partido anunciaron cambios internos y renovación de cuadros políticos.",
+      fuente: "El Comercio"
+    }
+  ],
+
+  // 🟢 3. VISIÓN
+  vision:
+    "Construir un Estado democrático, descentralizado y transparente, donde el desarrollo económico esté acompañado de justicia social y fortalecimiento institucional.",
+
+  // 🟣 4. FUTURO
+  futuro:
+    "Fuerza Popular plantea un Perú con crecimiento sostenible, reducción de la informalidad y servicios públicos de calidad, priorizando educación, salud y lucha contra la corrupción.",
+
+  // 🔴 5. REDES
+  redes: {
+    facebook: "https://www.facebook.com/FuerzaPopularOficial",
+    twitter: "https://twitter.com/FuerzaPopular",
+    instagram: "https://www.instagram.com/fuerzapopular"
+  }
 },
 
   {
@@ -221,8 +266,35 @@ export const partidos = [
         explicacion: "Fortalecer centros de atención primaria.",
         problema: "Sistema de salud reactivo",
       }
-    ]
-  },
+  ],
+
+  // 🔵 2. NOTICIAS
+  noticias: [
+    {
+      id: "pm-n1",
+      titulo: "El Partido Morado se reorganiza de cara a las elecciones 2026",
+      resumen:
+        "Dirigentes del partido anunciaron cambios internos y renovación de cuadros políticos.",
+      fuente: "El Comercio"
+    }
+  ],
+
+  // 🟢 3. VISIÓN
+  vision:
+    "Construir un Estado democrático, descentralizado y transparente, donde el desarrollo económico esté acompañado de justicia social y fortalecimiento institucional.",
+
+  // 🟣 4. FUTURO
+  futuro:
+    "El Partido Morado plantea un Perú con crecimiento sostenible, reducción de la informalidad y servicios públicos de calidad, priorizando educación, salud y lucha contra la corrupción.",
+
+  // 🔴 5. REDES
+  redes: {
+    facebook: "https://www.facebook.com/PartidoMoradoOficial",
+    twitter: "https://twitter.com/PartidoMorado",
+    instagram: "https://www.instagram.com/partidomorado"
+  }
+},
+
 
   {
     id: "alianza-progreso",
@@ -245,8 +317,36 @@ export const partidos = [
         explicacion: "Programas de becas para educación superior.",
         problema: "Acceso limitado a educación superior",
       }
-    ]
-  },
+    ],
+  
+
+  // 🔵 2. NOTICIAS
+  noticias: [
+    {
+      id: "pr-n1",
+      titulo: "Alianza para el Progreso se reorganiza de cara a las elecciones 2026",
+      resumen:
+        "Dirigentes del partido anunciaron cambios internos y renovación de cuadros políticos.",
+      fuente: "El Comercio"
+    }
+  ],
+
+  // 🟢 3. VISIÓN
+  vision:
+    "Construir un Estado democrático, descentralizado y transparente, donde el desarrollo económico esté acompañado de justicia social y fortalecimiento institucional.",
+
+  // 🟣 4. FUTURO
+  futuro:
+    "Alianza para el Progeso plantea un Perú con crecimiento sostenible, reducción de la informalidad y servicios públicos de calidad, priorizando educación, salud y lucha contra la corrupción.",
+
+  // 🔴 5. REDES
+  redes: {
+    facebook: "https://www.facebook.com/APOficial",
+    twitter: "https://twitter.com/AlianzaParaElProgreso",
+    instagram: "https://www.instagram.com/alianzaparaelprogreso"
+  }
+},
+
 
   {
     id: "juntos-por-el-peru",
@@ -269,8 +369,35 @@ export const partidos = [
         explicacion: "Fortalecer derechos laborales.",
         problema: "Precariedad laboral",
       }
-    ]
-  },
+    ],
+
+  // 🔵 2. NOTICIAS
+  noticias: [
+    {
+      id: "jp-n1",
+      titulo: "Juntos por el Perú se reorganiza de cara a las elecciones 2026",
+      resumen:
+        "Dirigentes del partido anunciaron cambios internos y renovación de cuadros políticos.",
+      fuente: "El Comercio"
+    }
+  ],
+
+  // 🟢 3. VISIÓN
+  vision:
+    "Construir un Estado democrático, descentralizado y transparente, donde el desarrollo económico esté acompañado de justicia social y fortalecimiento institucional.",
+
+  // 🟣 4. FUTURO
+  futuro:
+    "Juntos por el Perú plantea un Perú con crecimiento sostenible, reducción de la informalidad y servicios públicos de calidad, priorizando educación, salud y lucha contra la corrupción.",
+
+  // 🔴 5. REDES
+  redes: {
+    facebook: "https://www.facebook.com/JuntosXelPeruOficial",
+    twitter: "https://twitter.com/JuntosXelPeru",
+    instagram: "https://www.instagram.com/jppartidoperuano"
+  }
+},
+
 
   {
     id: "renovacion-popular",
@@ -293,8 +420,35 @@ export const partidos = [
         explicacion: "Optimizar el uso de recursos del Estado.",
         problema: "Ineficiencia estatal",
       }
-    ]
-  },
+    ],
+
+  // 🔵 2. NOTICIAS
+  noticias: [
+    {
+      id: "rp-n1",
+      titulo: "Renovación Popular se reorganiza de cara a las elecciones 2026",
+      resumen:
+        "Dirigentes del partido anunciaron cambios internos y renovación de cuadros políticos.",
+      fuente: "El Comercio"
+    }
+  ],
+
+  // 🟢 3. VISIÓN
+  vision:
+    "Construir un Estado democrático, descentralizado y transparente, donde el desarrollo económico esté acompañado de justicia social y fortalecimiento institucional.",
+
+  // 🟣 4. FUTURO
+  futuro:
+    "Renovación Popular plantea un Perú con crecimiento sostenible, reducción de la informalidad y servicios públicos de calidad, priorizando educación, salud y lucha contra la corrupción.",
+
+  // 🔴 5. REDES
+  redes: {
+    facebook: "https://www.facebook.com/RenovacionPopularOficial",
+    twitter: "https://twitter.com/RenovacionPopular",
+    instagram: "https://www.instagram.com/renovacionpopular"
+  }
+},
+
     {
     id: "fe-en-el-peru",
     nombre: "Fe en el Perú",
@@ -306,8 +460,35 @@ export const partidos = [
       { id: 14, tema: "Salud", titulo: "Mejorar atención primaria", tipo: "Promesa",
         explicacion: "Impulsar campañas de prevención y fortalecer postas médicas.",
         problema: "Baja cobertura de atención básica" },
-    ]
-  },
+    ],
+
+  // 🔵 2. NOTICIAS
+  noticias: [
+    {
+      id: "fe-n1",
+      titulo: "Fe en el Perú se reorganiza de cara a las elecciones 2026",
+      resumen:
+        "Dirigentes del partido anunciaron cambios internos y renovación de cuadros políticos.",
+      fuente: "El Comercio"
+    }
+  ],
+
+  // 🟢 3. VISIÓN
+  vision:
+    "Construir un Estado democrático, descentralizado y transparente, donde el desarrollo económico esté acompañado de justicia social y fortalecimiento institucional.",
+
+  // 🟣 4. FUTURO
+  futuro:
+    "Fe en el Perú plantea un Perú con crecimiento sostenible, reducción de la informalidad y servicios públicos de calidad, priorizando educación, salud y lucha contra la corrupción.",
+
+  // 🔴 5. REDES
+  redes: {
+    facebook: "https://www.facebook.com/FeEnElPeruOfi",
+    twitter: "https://twitter.com/FeEnElPeru",
+    instagram: "https://www.instagram.com/fenelperu"
+  }
+},
+
 
   {
     id: "ciudadanos-por-el-peru",
@@ -320,8 +501,34 @@ export const partidos = [
       { id: 16, tema: "Economía", titulo: "Empleo juvenil", tipo: "Concreta",
         explicacion: "Incentivos para contratación juvenil y prácticas remuneradas.",
         problema: "Desempleo juvenil" },
-    ]
-  },
+    ],
+
+  // 🔵 2. NOTICIAS
+  noticias: [
+    {
+      id: "cp-n1",
+      titulo: "Ciudadanos por el Perú se reorganiza de cara a las elecciones 2026",
+      resumen:
+        "Dirigentes del partido anunciaron cambios internos y renovación de cuadros políticos.",
+      fuente: "El Comercio"
+    }
+  ],
+
+  // 🟢 3. VISIÓN
+  vision:
+    "Construir un Estado democrático, descentralizado y transparente, donde el desarrollo económico esté acompañado de justicia social y fortalecimiento institucional.",
+
+  // 🟣 4. FUTURO
+  futuro:
+    "Ciudadanos por el Perú plantea un Perú con crecimiento sostenible, reducción de la informalidad y servicios públicos de calidad, priorizando educación, salud y lucha contra la corrupción.",
+
+  // 🔴 5. REDES
+  redes: {
+    facebook: "https://www.facebook.com/CiudadanosXelPerúOficial",
+    twitter: "https://twitter.com/CiudadanosXelPerú",
+    instagram: "https://www.instagram.com/cpep"
+  }
+},
 
   {
     id: "somos-peru",
@@ -334,8 +541,35 @@ export const partidos = [
       { id: 18, tema: "Educación", titulo: "Mejorar calidad educativa", tipo: "Promesa",
         explicacion: "Programas para elevar rendimiento escolar.",
         problema: "Brechas educativas" },
-    ]
-  },
+    ],
+
+  // 🔵 2. NOTICIAS
+  noticias: [
+    {
+      id: "sp-n1",
+      titulo: "Somos Perú se reorganiza de cara a las elecciones 2026",
+      resumen:
+        "Dirigentes del partido anunciaron cambios internos y renovación de cuadros políticos.",
+      fuente: "El Comercio"
+    }
+  ],
+
+  // 🟢 3. VISIÓN
+  vision:
+    "Construir un Estado democrático, descentralizado y transparente, donde el desarrollo económico esté acompañado de justicia social y fortalecimiento institucional.",
+
+  // 🟣 4. FUTURO
+  futuro:
+    "Somos Perú plantea un Perú con crecimiento sostenible, reducción de la informalidad y servicios públicos de calidad, priorizando educación, salud y lucha contra la corrupción.",
+
+  // 🔴 5. REDES
+  redes: {
+    facebook: "https://www.facebook.com/SomosPerúOficial",
+    twitter: "https://twitter.com/SomosPeru",
+    instagram: "https://www.instagram.com/somosperuoficial"
+  }
+},
+
 
   {
     id: "frepap-fia",
@@ -348,8 +582,35 @@ export const partidos = [
       { id: 20, tema: "Salud", titulo: "Nutrición y prevención", tipo: "Promesa",
         explicacion: "Campañas de nutrición y prevención en zonas rurales.",
         problema: "Anemia y desnutrición" },
-    ]
-  },
+    ],
+
+  // 🔵 2. NOTICIAS
+  noticias: [
+    {
+      id: "fr-n1",
+      titulo: "FREPAP se reorganiza de cara a las elecciones 2026",
+      resumen:
+        "Dirigentes del partido anunciaron cambios internos y renovación de cuadros políticos.",
+      fuente: "El Comercio"
+    }
+  ],
+
+  // 🟢 3. VISIÓN
+  vision:
+    "Construir un Estado democrático, descentralizado y transparente, donde el desarrollo económico esté acompañado de justicia social y fortalecimiento institucional.",
+
+  // 🟣 4. FUTURO
+  futuro:
+    "FREPAP plantea un Perú con crecimiento sostenible, reducción de la informalidad y servicios públicos de calidad, priorizando educación, salud y lucha contra la corrupción.",
+
+  // 🔴 5. REDES
+  redes: {
+    facebook: "https://www.facebook.com/FREPAP",
+    twitter: "https://twitter.com/FREPAP",
+    instagram: "https://www.instagram.com/frepap"
+  }
+},
+
 
   {
     id: "obras",
@@ -362,8 +623,35 @@ export const partidos = [
       { id: 22, tema: "Educación", titulo: "Conectividad escolar", tipo: "Promesa",
         explicacion: "Mejorar acceso a internet y recursos digitales.",
         problema: "Brecha digital" },
-    ]
-  },
+    ],
+
+  // 🔵 2. NOTICIAS
+  noticias: [
+    {
+      id: "ob-n1",
+      titulo: "AEl Partido Cívico Obras se reorganiza de cara a las elecciones 2026",
+      resumen:
+        "Dirigentes del partido anunciaron cambios internos y renovación de cuadros políticos.",
+      fuente: "El Comercio"
+    }
+  ],
+
+  // 🟢 3. VISIÓN
+  vision:
+    "Construir un Estado democrático, descentralizado y transparente, donde el desarrollo económico esté acompañado de justicia social y fortalecimiento institucional.",
+
+  // 🟣 4. FUTURO
+  futuro:
+    "El Partido Cívico Obras plantea un Perú con crecimiento sostenible, reducción de la informalidad y servicios públicos de calidad, priorizando educación, salud y lucha contra la corrupción.",
+
+  // 🔴 5. REDES
+  redes: {
+    facebook: "https://www.facebook.com/PartidoCivicoObras",
+    twitter: "https://twitter.com/PartidoCivicoObras",
+    instagram: "https://www.instagram.com/PartidoCivObras"
+  }
+},
+
 
   {
     id: "frente-esperanza-2021",
@@ -376,7 +664,33 @@ export const partidos = [
       { id: 24, tema: "Economía", titulo: "Apoyo a emprendedores", tipo: "Promesa",
         explicacion: "Programas para facilitar capital semilla y asesoría.",
         problema: "Barreras para emprender" },
-    ]
+    ],
+
+  // 🔵 2. NOTICIAS
+  noticias: [
+    {
+      id: "es-n1",
+      titulo: "Frente Esperanza se reorganiza de cara a las elecciones 2026",
+      resumen:
+        "Dirigentes del partido anunciaron cambios internos y renovación de cuadros políticos.",
+      fuente: "El Comercio"
+    }
+  ],
+
+  // 🟢 3. VISIÓN
+  vision:
+    "Construir un Estado democrático, descentralizado y transparente, donde el desarrollo económico esté acompañado de justicia social y fortalecimiento institucional.",
+
+  // 🟣 4. FUTURO
+  futuro:
+    "Frente Esperanza plantea un Perú con crecimiento sostenible, reducción de la informalidad y servicios públicos de calidad, priorizando educación, salud y lucha contra la corrupción.",
+
+  // 🔴 5. REDES
+  redes: {
+    facebook: "https://www.facebook.com/FrenteEsperanzaOficial",
+    twitter: "https://twitter.com/FrenteEsperanza",
+    instagram: "https://www.instagram.com/FrenteEsperanza"
   }
+},
 
 ];
