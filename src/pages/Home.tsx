@@ -6,6 +6,8 @@ import AddCandidateBubble from "../components/AddCandidateBubble"
 import CandidateDetail from "../components/CandidateDetail"
 import ComparisonModal from "../components/ComparisonModal"
 import { Link } from "react-router-dom"
+import selectCandidateImg from "../assets/icn.png";
+
 
 import {
   Share2,
@@ -304,13 +306,18 @@ const Home: React.FC = () => {
 
     {/* Contenido principal */}
     <div style={{ position: "relative", zIndex: 10, display: "flex", flexDirection: "column", alignItems: "center" }}>
-      <header className="home-header" style={{ marginBottom: "2rem" }}>
-        <h1>Voto Informado</h1>
-        <p>Una visión general del escenario político.</p>
-      </header>
+      <header className="home-header">
+    <div className="home-header-content">
+      <h1>Voto Informado</h1>
+      <p>Una visión general del escenario político.</p>
+    </div>
+  </header>
 
       <section className="section" style={{ width: "100%", maxWidth: "1000px", position: "relative" }}>
         <h2 style={{ textAlign: "center", marginBottom: "1rem" }}>Partidos en contienda</h2>
+
+        
+
 
         {/* Columnas de candidatos */}
         <div className="v-layout" style={{ position: "relative", height: "600px", marginBottom: "-500px", zIndex: 50 }}>
@@ -323,6 +330,64 @@ const Home: React.FC = () => {
               onSelect={() => handleBubbleClick(i)}
             />
           ))}
+          {selectedIndex === null && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: "spring", stiffness: 120, damping: 14 }}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              marginTop: "100px",   // 👈 AJUSTA ESTE VALOR
+              marginBottom: "2rem",
+              pointerEvents: "none",
+            }}
+
+          >
+            {/* Bola gris */}
+            <div
+              style={{
+                width: "90px",
+                height: "90px",
+                borderRadius: "50%",
+                background: "linear-gradient(145deg, #e5e7eb, #d1d5db)",
+                boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                overflow: "hidden", // importante para el círculo
+              }}
+            >
+              <img
+                src={selectCandidateImg}
+                alt="Seleccione candidato"
+                style={{
+                  width: "60%",
+                  height: "60%",
+                  objectFit: "contain",
+                  opacity: 0.85,
+                  pointerEvents: "none",
+                }}
+              />
+            </div>
+
+
+            {/* Texto */}
+            <p
+              style={{
+                marginTop: "12px",
+                fontSize: "14px",
+                color: "#6b7280",
+                fontWeight: 600,
+                textAlign: "center",
+                maxWidth: "260px",
+              }}
+            >
+              Seleccione al candidato de su preferencia
+            </p>
+          </motion.div>
+        )}
 
           {/* SOLO el botón + cuando hay seleccionado */}
           {selectedIndex !== null && (
@@ -339,14 +404,37 @@ const Home: React.FC = () => {
                 pointerEvents: "auto",
               }}
             >
-              <motion.div style={{ transform: "translate(150px, 20px)" }}>
+              <motion.div
+                style={{
+                  transform: "translate(150px, 20px)",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: "6px",
+                }}
+              >
                 <AddCandidateBubble
                   active={isAddingSecond}
                   onClick={() => {
                     if (selectedIndex !== null) setIsAddingSecond((v) => !v)
                   }}
                 />
+
+                <span
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    color: isAddingSecond ? "#dc2626" : "#4f46e5",
+                    lineHeight: 1,
+                    userSelect: "none",
+                    textAlign: "center",
+                  }}
+                >
+                  {isAddingSecond ? "Seleccione otro candidato" : "Comparar"}
+                </span>
+
               </motion.div>
+
             </motion.div>
           )}
         </div>
