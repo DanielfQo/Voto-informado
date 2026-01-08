@@ -192,17 +192,23 @@
 
 /* ───────── zona desbloqueable ───────── */
 
-.globalBackground{
-  position:fixed;
-  inset:0;
-  background: radial-gradient(circle at top,#00e5ff22,#000 70%);
-  z-index:-1;
+.globalBackground {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 30%, #00e5ff22, transparent 50%),
+    radial-gradient(circle at 70% 70%, #00ff7f22, transparent 50%),
+    linear-gradient(180deg, #05080f, #020409);
+  z-index: -1;
+  animation: holoMove 16s linear infinite;
 }
 
-.soft{
-  border-radius:18px;
-  overflow:hidden;
+@keyframes holoMove {
+  0% { background-position: 0% 0%, 100% 100%, center; }
+  50% { background-position: 100% 100%, 0% 0%, center; }
+  100% { background-position: 0% 0%, 100% 100%, center; }
 }
+
 
 .unlockArrow{
   width:60px;height:60px;
@@ -213,6 +219,13 @@
   cursor:pointer;
   animation:pulse 2s infinite;
 }
+
+.temaBtn.activo {
+  background: linear-gradient(135deg, #00e5ff, #00ff7f);
+  color:#001;
+  box-shadow: 0 0 40px #00e5ff, 0 0 80px #00ff7f66;
+}
+
 
 .unlockArrow span{
   width:18px;height:18px;
@@ -253,4 +266,59 @@
   backdrop-filter:blur(10px);
   display:grid;place-items:center;
   font-weight:700;
+}
+
+
+/* ───────── BOTÓN TEMA & CURSOR GLOW ───────── */
+.temaBtn {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:rgba(0,0,0,.4);
+  border:1px solid rgba(0,229,255,.3);
+  padding:12px 18px;
+  border-radius:16px;
+  color:#00e5ff;
+  cursor:pointer;
+  transition:.3s cubic-bezier(.4,0,.2,1);
+  backdrop-filter:blur(8px);
+}
+
+.temaBtn:hover { transform:scale(1.06); box-shadow:0 0 20px #00e5ff44; }
+.temaBtn:active { transform:scale(.96); }
+
+.temaBtn.activo {
+  background:#00e5ff;
+  color:#002;
+  box-shadow:0 0 35px #00e5ff;
+}
+
+.cursorGlow {
+  position:fixed;
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  pointer-events:none;
+  background:radial-gradient(circle,#00e5ff66 0%, transparent 70%);
+  transform:translate(-50%,-50%);
+  z-index:9999;
+  mix-blend-mode:screen;
+}
+
+
+/* ───────── GLASS BASE ───────── */
+.soft {
+  background: linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.03));
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255,255,255,.18);
+  box-shadow:
+    0 8px 32px rgba(0,0,0,.35),
+    inset 0 0 1px rgba(255,255,255,.4);
+  border-radius: 28px;
+}
+.soft:hover {
+  box-shadow:
+    0 0 40px rgba(0,229,255,.25),
+    0 12px 45px rgba(0,0,0,.5);
 }
