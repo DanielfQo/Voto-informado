@@ -63,6 +63,16 @@ const SituacionActual: React.FC = () => {
         ))}
       </Swiper>
 
+      {/* BOTÓN PARA IR A CANDIDATOS */}
+      <div className="nav-to-candidatos">
+        <Link to="/home" className="nav-button">
+          <span>Ver Partidos en Contienda</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </Link>
+      </div>
+
       {/* PANEL ZONE (layout 3 filas) */}
       <div className="panelZone layout3 soft">
         {/* Fila 1: Tabs + slider en una sola fila */}
@@ -224,15 +234,7 @@ const SituacionActual: React.FC = () => {
         </div>
       </div>
 
-      {/* BOTÓN PARA IR A CANDIDATOS */}
-      <div className="nav-to-candidatos">
-        <Link to="/home" className="nav-button">
-          <span>Ver Partidos en Contienda</span>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
-        </Link>
-      </div>
+      
     </div>
   )
 }
