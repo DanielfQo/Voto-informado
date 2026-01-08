@@ -1,13 +1,13 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import '../styles/Home.css';
 import { motion } from 'framer-motion';
-import { partidos } from '../data/data'; 
+import { partidos } from '../data/data';
 import AddCandidateBubble from "../components/AddCandidateBubble"
 import CandidateDetail from "../components/CandidateDetail"
 import ComparisonModal from "../components/ComparisonModal"
 import { Link } from "react-router-dom"
 import selectCandidateImg from "../assets/icn.png";
-
+import TechnicalTooltip from '../components/TechnicalTooltip';
 
 import {
   Share2,
@@ -51,8 +51,8 @@ const subBolas = [
 ];
 
 
-const WindyBubble: React.FC<{ 
-  item: typeof bubbleItems[0]; 
+const WindyBubble: React.FC<{
+  item: typeof bubbleItems[0];
   delay: number;
   isSelected: boolean;
   onSelect: () => void;
@@ -61,9 +61,9 @@ const WindyBubble: React.FC<{
   const windParams = useMemo(() => {
     const direction = Math.random() > 0.5 ? 1 : -1;
     return {
-      xSway: (15 + Math.random() * 10) * direction, 
+      xSway: (15 + Math.random() * 10) * direction,
       yBob: 15 + Math.random() * 10,
-      rotate: (5 + Math.random() * 5) * direction, 
+      rotate: (5 + Math.random() * 5) * direction,
       duration: 3 + Math.random() * 2,
     };
   }, []);
@@ -104,7 +104,7 @@ const WindyBubble: React.FC<{
   };
 
   const [animationState, setAnimationState] = useState<"falling" | "floating">("falling");
-  const trailIndices = [1, 2, 3, 4]; 
+  const trailIndices = [1, 2, 3, 4];
   const currentAnimation = isSelected ? "selected" : animationState;
 
   return (
@@ -246,9 +246,9 @@ const Home: React.FC = () => {
 
 
   const particles = useMemo(() => Array.from({ length: 30 }).map(() => ({
-      left: `${Math.random() * 100}%`,
-      delay: `${Math.random() * 5}s`,
-      duration: `${0.5 + Math.random()}s`,
+    left: `${Math.random() * 100}%`,
+    delay: `${Math.random() * 5}s`,
+    duration: `${0.5 + Math.random()}s`,
   })), []);
 
   const handleBubbleClick = (i: number) => {
@@ -268,351 +268,359 @@ const Home: React.FC = () => {
 
 
   return (
-  <div className="home-container">
-    {/* BOTÓN VOLVER */}
-    <div style={{ position: "absolute", top: 20, left: 20, zIndex: 1000 }}>
-      <Link
-        to="/"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "8px",
-          padding: "10px 16px",
-          background: "rgba(255, 255, 255, 0.9)",
-          borderRadius: "8px",
-          textDecoration: "none",
-          color: "#4f46e5",
-          fontWeight: 600,
-          boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-        }}
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M19 12H5M12 19l-7-7 7-7" />
-        </svg>
-        <span>Volver a Situación Actual</span>
-      </Link>
-    </div>
+    <div className="home-container">
+      {/* BOTÓN VOLVER */}
+      <div style={{ position: "absolute", top: 20, left: 20, zIndex: 1000 }}>
+        <Link
+          to="/"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            padding: "10px 16px",
+            background: "rgba(255, 255, 255, 0.9)",
+            borderRadius: "8px",
+            textDecoration: "none",
+            color: "#4f46e5",
+            fontWeight: 600,
+            boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+          }}
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          <span>Volver a Situación Actual</span>
+        </Link>
+      </div>
 
-    {/* Fondo */}
-    <div className="falling-bg">
-      {particles.map((p, i) => (
-        <div
-          key={i}
-          className="particle"
-          style={{ left: p.left, animationDelay: p.delay, animationDuration: p.duration }}
-        />
-      ))}
-    </div>
+      {/* Fondo */}
+      <div className="falling-bg">
+        {particles.map((p, i) => (
+          <div
+            key={i}
+            className="particle"
+            style={{ left: p.left, animationDelay: p.delay, animationDuration: p.duration }}
+          />
+        ))}
+      </div>
 
-    {/* Contenido principal */}
-    <div style={{ position: "relative", zIndex: 10, display: "flex", flexDirection: "column", alignItems: "center" }}>
-      <header className="home-header">
-    <div className="home-header-content">
-      <h1>Voto Informado</h1>
-      <p>Una visión general del escenario político.</p>
-    </div>
-  </header>
+      {/* Contenido principal */}
+      <div style={{ position: "relative", zIndex: 10, display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <header className="home-header">
+          <div className="home-header-content">
+            <h1>Voto Informado</h1>
+            <p>Una visión general del escenario político.</p>
+          </div>
+        </header>
 
-      <section className="section" style={{ width: "100%", maxWidth: "1000px", position: "relative" }}>
-        <h2 style={{ textAlign: "center", marginBottom: "1rem" }}>Partidos en contienda</h2>
-
-        
+        <section className="section" style={{ width: "100%", maxWidth: "1000px", position: "relative" }}>
+          <h2 style={{ textAlign: "center", marginBottom: "1rem" }}>Partidos en contienda</h2>
 
 
-        {/* Columnas de candidatos */}
-        <div className="v-layout" style={{ position: "relative", height: "600px", marginBottom: "-500px", zIndex: 50 }}>
-          {bubbleItems.map((item, i) => (
-            <WindyBubble
-              key={i}
-              item={item}
-              delay={i * 0.15}
-              isSelected={selectedIndex === i}
-              onSelect={() => handleBubbleClick(i)}
-            />
-          ))}
-          {selectedIndex === null && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ type: "spring", stiffness: 120, damping: 14 }}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              marginTop: "100px",   // 👈 AJUSTA ESTE VALOR
-              marginBottom: "2rem",
-              pointerEvents: "none",
-            }}
 
-          >
-            {/* Bola gris */}
-            <div
-              style={{
-                width: "90px",
-                height: "90px",
-                borderRadius: "50%",
-                background: "linear-gradient(145deg, #e5e7eb, #d1d5db)",
-                boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                overflow: "hidden", // importante para el círculo
-              }}
-            >
-              <img
-                src={selectCandidateImg}
-                alt="Seleccione candidato"
+
+          {/* Columnas de candidatos */}
+          <div className="v-layout" style={{ position: "relative", height: "600px", marginBottom: "-500px", zIndex: 50 }}>
+            {bubbleItems.map((item, i) => (
+              <WindyBubble
+                key={i}
+                item={item}
+                delay={i * 0.15}
+                isSelected={selectedIndex === i}
+                onSelect={() => handleBubbleClick(i)}
+              />
+            ))}
+            {selectedIndex === null && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ type: "spring", stiffness: 120, damping: 14 }}
                 style={{
-                  width: "60%",
-                  height: "60%",
-                  objectFit: "contain",
-                  opacity: 0.85,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  marginTop: "100px",   // 👈 AJUSTA ESTE VALOR
+                  marginBottom: "2rem",
                   pointerEvents: "none",
                 }}
-              />
-            </div>
 
-
-            {/* Texto */}
-            <p
-              style={{
-                marginTop: "12px",
-                fontSize: "14px",
-                color: "#6b7280",
-                fontWeight: 600,
-                textAlign: "center",
-                maxWidth: "260px",
-              }}
-            >
-              Seleccione al candidato de su preferencia
-            </p>
-          </motion.div>
-        )}
-
-          {/* SOLO el botón + cuando hay seleccionado */}
-          {selectedIndex !== null && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ type: "spring", stiffness: 160, damping: 14 }}
-              style={{
-                position: "absolute",
-                left: "45%",
-                top: 80,
-                transform: "translateX(-50%)",
-                zIndex: 200,
-                pointerEvents: "auto",
-              }}
-            >
-              <motion.div
-                style={{
-                  transform: "translate(150px, 20px)",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: "6px",
-                }}
               >
-                <AddCandidateBubble
-                  active={isAddingSecond}
-                  onClick={() => {
-                    if (selectedIndex !== null) setIsAddingSecond((v) => !v)
-                  }}
-                />
-
-                <span
+                {/* Bola gris */}
+                <div
                   style={{
-                    fontSize: "12px",
-                    fontWeight: 600,
-                    color: isAddingSecond ? "#dc2626" : "#4f46e5",
-                    lineHeight: 1,
-                    userSelect: "none",
-                    textAlign: "center",
+                    width: "90px",
+                    height: "90px",
+                    borderRadius: "50%",
+                    background: "linear-gradient(145deg, #e5e7eb, #d1d5db)",
+                    boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    overflow: "hidden", // importante para el círculo
                   }}
                 >
-                  {isAddingSecond ? "Seleccione otro candidato" : "Comparar"}
-                </span>
+                  <img
+                    src={selectCandidateImg}
+                    alt="Seleccione candidato"
+                    style={{
+                      width: "60%",
+                      height: "60%",
+                      objectFit: "contain",
+                      opacity: 0.85,
+                      pointerEvents: "none",
+                    }}
+                  />
+                </div>
 
+
+                {/* Texto */}
+                <p
+                  style={{
+                    marginTop: "12px",
+                    fontSize: "14px",
+                    color: "#6b7280",
+                    fontWeight: 600,
+                    textAlign: "center",
+                    maxWidth: "260px",
+                  }}
+                >
+                  Seleccione al candidato de su preferencia
+                </p>
               </motion.div>
-
-            </motion.div>
-          )}
-        </div>
-
-        {/* Sub-bolas centrales */}
-        {partidoSeleccionado && secondIndex === null && (
-          <div style={{ display: "flex", justifyContent: "center", marginTop: "200px", gap: "20px", zIndex: 200, position: "relative" }}>
-            {subBolas.map(({ label, icon: Icon }, idx) => (
-              <motion.div
-                key={label}
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: idx * 0.1, type: "spring", stiffness: 120 }}
-                style={{
-                  background: selectedSubBola === label ? "#4f46e5" : "white",
-                  color: selectedSubBola === label ? "white" : "#1f2937",
-                  width: "70px",
-                  height: "70px",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  cursor: "pointer",
-                  borderRadius: "9999px",
-                  boxShadow: "0 0 15px rgba(148, 163, 184, 0.35)",
-                  gap: "4px",
-                  fontSize: "10px",
-                  fontWeight: 600,
-                  textAlign: "center",
-                  
-                }}
-                onClick={() => setSelectedSubBola(label)}
-                whileHover={{ scale: 1.2 }}
-                
-              >
-                <Icon size={20} strokeWidth={2.2} />
-                <span>{label}</span>
-              </motion.div>
-            ))}
-
-          </div>
-        )}
-
-        {/* Modal Comparación */}
-        <ComparisonModal
-          open={!!(partidoSeleccionado && partidoSegundo)}
-          left={partidoSeleccionado}
-          right={partidoSegundo}
-          onClose={() => {
-            setSecondIndex(null)
-            setIsAddingSecond(false)
-          }}
-        />
-
-        {/* Información del candidato según sub-bola */}
-        {partidoSeleccionado && secondIndex === null && selectedSubBola && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            style={{
-              marginTop: "20px",
-              padding: "1.5rem",
-              background: "rgba(255,255,255,0.95)",
-              borderRadius: "20px",
-              maxWidth: "600px",
-              marginLeft: "auto",
-              marginRight: "auto",
-              boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
-              position: "relative",
-              zIndex: 100,
-            }}
-          >
-            <h3 style={{ textAlign: "center", marginBottom: "1rem" }}>{selectedSubBola}</h3>
-
-            <div style={{ textAlign: "justify" }}>
-              {selectedSubBola === "Redes" && (
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  gap: "24px",
-                  marginTop: "12px",
-                }}
-              >
-                {partidoSeleccionado.redes.facebook && (
-                  <a
-                    href={partidoSeleccionado.redes.facebook}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      textDecoration: "none",
-                      color: "#1877F2",
-                      fontSize: "12px",
-                      fontWeight: 600,
-                    }}
-                  >
-                    <Facebook size={28} />
-                    <span>Facebook</span>
-                  </a>
-                )}
-
-                {partidoSeleccionado.redes.twitter && (
-                  <a
-                    href={partidoSeleccionado.redes.twitter}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      textDecoration: "none",
-                      color: "#1DA1F2",
-                      fontSize: "12px",
-                      fontWeight: 600,
-                    }}
-                  >
-                    <Twitter size={28} />
-                    <span>Twitter</span>
-                  </a>
-                )}
-
-                {partidoSeleccionado.redes.instagram && (
-                  <a
-                    href={partidoSeleccionado.redes.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      textDecoration: "none",
-                      color: "#E1306C",
-                      fontSize: "12px",
-                      fontWeight: 600,
-                    }}
-                  >
-                    <Instagram size={28} />
-                    <span>Instagram</span>
-                  </a>
-                )}
-              </div>
             )}
 
+            {/* SOLO el botón + cuando hay seleccionado */}
+            {selectedIndex !== null && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ type: "spring", stiffness: 160, damping: 14 }}
+                style={{
+                  position: "absolute",
+                  left: "45%",
+                  top: 80,
+                  transform: "translateX(-50%)",
+                  zIndex: 200,
+                  pointerEvents: "auto",
+                }}
+              >
+                <motion.div
+                  style={{
+                    transform: "translate(150px, 20px)",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    gap: "6px",
+                  }}
+                >
+                  <AddCandidateBubble
+                    active={isAddingSecond}
+                    onClick={() => {
+                      if (selectedIndex !== null) setIsAddingSecond((v) => !v)
+                    }}
+                  />
 
-              {selectedSubBola === "Futuro" && <p>{partidoSeleccionado.futuro}</p>}
+                  <span
+                    style={{
+                      fontSize: "12px",
+                      fontWeight: 600,
+                      color: isAddingSecond ? "#dc2626" : "#4f46e5",
+                      lineHeight: 1,
+                      userSelect: "none",
+                      textAlign: "center",
+                    }}
+                  >
+                    {isAddingSecond ? "Seleccione otro candidato" : "Comparar"}
+                  </span>
 
-              {selectedSubBola === "Propuestas" && (
-                <ul>
-                  {partidoSeleccionado.propuestas.map((p) => (
-                    <li key={p.id}>
-                      <strong>{p.tema}:</strong> {p.titulo} {p.explicacion && `- ${p.explicacion}`}
-                    </li>
-                  ))}
-                </ul>
-              )}
+                </motion.div>
 
-              {selectedSubBola === "Noticias" && (
-                <ul>
-                  {partidoSeleccionado.noticias.map((n) => (
-                    <li key={n.id}>
-                      <strong>{n.titulo}</strong> - {n.resumen} ({n.fuente})
-                    </li>
-                  ))}
-                </ul>
-              )}
+              </motion.div>
+            )}
+          </div>
 
-              {selectedSubBola === "Visión" && <p>{partidoSeleccionado.vision}</p>}
+          {/* Sub-bolas centrales */}
+          {partidoSeleccionado && secondIndex === null && (
+            <div style={{ display: "flex", justifyContent: "center", marginTop: "200px", gap: "20px", zIndex: 200, position: "relative" }}>
+              {subBolas.map(({ label, icon: Icon }, idx) => (
+                <motion.div
+                  key={label}
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ delay: idx * 0.1, type: "spring", stiffness: 120 }}
+                  style={{
+                    background: selectedSubBola === label ? "#4f46e5" : "white",
+                    color: selectedSubBola === label ? "white" : "#1f2937",
+                    width: "70px",
+                    height: "70px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                    borderRadius: "9999px",
+                    boxShadow: "0 0 15px rgba(148, 163, 184, 0.35)",
+                    gap: "4px",
+                    fontSize: "10px",
+                    fontWeight: 600,
+                    textAlign: "center",
+
+                  }}
+                  onClick={() => setSelectedSubBola(label)}
+                  whileHover={{ scale: 1.2 }}
+
+                >
+                  <Icon size={20} strokeWidth={2.2} />
+                  <span>{label}</span>
+                </motion.div>
+              ))}
+
             </div>
-          </motion.div>
-        )}
-      </section>
+          )}
+
+          {/* Modal Comparación */}
+          <ComparisonModal
+            open={!!(partidoSeleccionado && partidoSegundo)}
+            left={partidoSeleccionado}
+            right={partidoSegundo}
+            onClose={() => {
+              setSecondIndex(null)
+              setIsAddingSecond(false)
+            }}
+          />
+
+          {/* Información del candidato según sub-bola */}
+          {partidoSeleccionado && secondIndex === null && selectedSubBola && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              style={{
+                marginTop: "20px",
+                padding: "1.5rem",
+                background: "rgba(255,255,255,0.95)",
+                borderRadius: "20px",
+                maxWidth: "600px",
+                marginLeft: "auto",
+                marginRight: "auto",
+                boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
+                position: "relative",
+                zIndex: 100,
+              }}
+            >
+              <h3 style={{ textAlign: "center", marginBottom: "1rem" }}>{selectedSubBola}</h3>
+
+              <div style={{ textAlign: "justify" }}>
+                {selectedSubBola === "Redes" && (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      gap: "24px",
+                      marginTop: "12px",
+                    }}
+                  >
+                    {partidoSeleccionado.redes.facebook && (
+                      <a
+                        href={partidoSeleccionado.redes.facebook}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          textDecoration: "none",
+                          color: "#1877F2",
+                          fontSize: "12px",
+                          fontWeight: 600,
+                        }}
+                      >
+                        <Facebook size={28} />
+                        <span>Facebook</span>
+                      </a>
+                    )}
+
+                    {partidoSeleccionado.redes.twitter && (
+                      <a
+                        href={partidoSeleccionado.redes.twitter}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          textDecoration: "none",
+                          color: "#1DA1F2",
+                          fontSize: "12px",
+                          fontWeight: 600,
+                        }}
+                      >
+                        <Twitter size={28} />
+                        <span>Twitter</span>
+                      </a>
+                    )}
+
+                    {partidoSeleccionado.redes.instagram && (
+                      <a
+                        href={partidoSeleccionado.redes.instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          textDecoration: "none",
+                          color: "#E1306C",
+                          fontSize: "12px",
+                          fontWeight: 600,
+                        }}
+                      >
+                        <Instagram size={28} />
+                        <span>Instagram</span>
+                      </a>
+                    )}
+                  </div>
+                )}
+
+
+                {selectedSubBola === "Futuro" && (
+                  <TechnicalTooltip text={partidoSeleccionado.futuro} />
+                )}
+
+
+                {selectedSubBola === "Propuestas" && (
+                  <ul>
+                    {partidoSeleccionado.propuestas.map((p) => (
+                      <li key={p.id}>
+                        <strong>{p.tema}:</strong>{" "}
+                        <TechnicalTooltip text={`${p.titulo} ${p.explicacion ?? ""}`} />
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                {selectedSubBola === "Noticias" && (
+                  <ul>
+                    {partidoSeleccionado.noticias.map((n) => (
+                      <li key={n.id}>
+                        <strong>{n.titulo}</strong> - {n.resumen} ({n.fuente})
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                {selectedSubBola === "Visión" && (
+                  <TechnicalTooltip text={partidoSeleccionado.vision} />
+                )}
+
+
+              </div>
+            </motion.div>
+          )}
+        </section>
+      </div>
     </div>
-  </div>
-)
+  )
 }
 
 export default Home;
