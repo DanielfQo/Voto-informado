@@ -230,6 +230,9 @@ const Home: React.FC = () => {
       <section className="section" style={{ width: "100%", maxWidth: "1000px", position: "relative" }}>
         <h2 style={{ textAlign: "center", marginBottom: "1rem" }}>Partidos en contienda</h2>
 
+        
+
+
         {/* Columnas de candidatos */}
         <div className="v-layout" style={{ position: "relative", height: "600px", marginBottom: "-500px", zIndex: 50 }}>
           {bubbleItems.map((item, i) => (
@@ -241,6 +244,53 @@ const Home: React.FC = () => {
               onSelect={() => handleBubbleClick(i)}
             />
           ))}
+          {selectedIndex === null && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: "spring", stiffness: 120, damping: 14 }}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              marginBottom: "2rem",
+              pointerEvents: "none", // no interfiere con clicks
+            }}
+          >
+            {/* Bola gris */}
+            <div
+              style={{
+                width: "90px",
+                height: "90px",
+                borderRadius: "50%",
+                background: "linear-gradient(145deg, #e5e7eb, #d1d5db)",
+                boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "28px",
+                fontWeight: 800,
+                color: "#6b7280",
+              }}
+            >
+              ?
+            </div>
+
+            {/* Texto */}
+            <p
+              style={{
+                marginTop: "12px",
+                fontSize: "14px",
+                color: "#6b7280",
+                fontWeight: 600,
+                textAlign: "center",
+                maxWidth: "260px",
+              }}
+            >
+              Seleccione al candidato de su preferencia
+            </p>
+          </motion.div>
+        )}
 
           {/* SOLO el botón + cuando hay seleccionado */}
           {selectedIndex !== null && (
