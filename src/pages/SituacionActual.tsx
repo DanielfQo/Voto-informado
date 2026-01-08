@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from "react"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay } from "swiper/modules"
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts"
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceDot, ReferenceArea } from "recharts"
 import { Link } from "react-router-dom"
 import { DollarSign, HeartPulse, GraduationCap, Shield } from "lucide-react"
-import { ReferenceDot, ReferenceArea } from "recharts"
-
-
 import { DATA_ACTUALIDAD } from "../data/situacion.data"
 import { HITOS } from "../data/hitos.data"
-
-
 import "swiper/css"
 import "../styles/Panorama.css"
 
@@ -20,36 +15,36 @@ const slides = [
   { img: "/Images/situacion_actual/vendedor.jpg", text: "Inseguridad ciudadana" }
 ]
 
+const TEMAS = [
+  { key: "economia", label: "Economía", icon: <DollarSign size={18} /> },
+  { key: "salud", label: "Salud", icon: <HeartPulse size={18} /> },
+  { key: "educacion", label: "Educación", icon: <GraduationCap size={18} /> },
+  { key: "seguridad", label: "Seguridad", icon: <Shield size={18} /> }
+]
+
 /* Componente principal de la página de Situación Actual */
 const SituacionActual: React.FC = () => {
   const [tema, setTema] = useState<keyof typeof DATA_ACTUALIDAD>("economia")
-  const currentData = DATA_ACTUALIDAD[tema]
-  const minYear = Math.min(...currentData.map((d: { year: number }) => d.year))
-  const maxYear = Math.max(...currentData.map((d: { year: number }) => d.year))
-  const [year, setYear] = useState(maxYear)
-
-
+  const [year, setYear] = useState<number>(0)
   const [cursor, setCursor] = useState({ x: 0, y: 0, show: false })
 
+  const currentData = DATA_ACTUALIDAD[tema]
+  const minYear = Math.min(...currentData.map((d) => d.year))
+  const maxYear = Math.max(...currentData.map((d) => d.year))
 
   useEffect(() => {
     setYear(maxYear)
-  }, [tema])
+  }, [tema, maxYear])
 
-  const chartData = DATA_ACTUALIDAD[tema].filter((d: any) => d.year <= year)
+  const chartData = DATA_ACTUALIDAD[tema].filter((d) => d.year <= year)
 
+  // Stats para el panel izquierdo
+  const lastPoint = chartData[chartData.length - 1]
+  const firstPoint = chartData[0]
+  const delta = firstPoint && lastPoint ? (lastPoint.value - firstPoint.value) : null
 
-  const TEMAS = [
-    { key: "economia", label: "Economía", icon: <DollarSign size={18} /> },
-    { key: "salud", label: "Salud", icon: <HeartPulse size={18} /> },
-    { key: "educacion", label: "Educación", icon: <GraduationCap size={18} /> },
-    { key: "seguridad", label: "Seguridad", icon: <Shield size={18} /> }
-  ]
-
-  /* Ranges for ReferenceArea */
-  const [rangeA, setRangeA] = useState<[number, number]>([minYear, minYear + 5])
-  const [rangeB, setRangeB] = useState<[number, number]>([maxYear - 5, maxYear])
-
+  // Hito del año seleccionado
+  const hitoActual = HITOS[tema][year as keyof typeof HITOS[typeof tema]] as string | undefined
 
   return (
     <div className="situacion-actual">
@@ -68,11 +63,12 @@ const SituacionActual: React.FC = () => {
         ))}
       </Swiper>
 
-      {/* PANEL DE GRÁFICOS */}
-      <div className="panelZone horizontal">
-        <div className="sideControls soft">
-          <div className="temas">
-            {TEMAS.map(t => (
+      {/* PANEL ZONE (layout 3 filas) */}
+      <div className="panelZone layout3 soft">
+        {/* Fila 1: Tabs + slider en una sola fila */}
+        <div className="topRow">
+          <div className="temasRow">
+            {TEMAS.map((t) => (
               <button
                 key={t.key}
                 onClick={() => setTema(t.key as keyof typeof DATA_ACTUALIDAD)}
@@ -84,100 +80,147 @@ const SituacionActual: React.FC = () => {
             ))}
           </div>
 
-          {/* LÍNEA DE TIEMPO */}
-          <div className="timeline">
-            <span>{minYear}</span>
+          <div className="timelineRow">
+            <span className="yearMin">{minYear}</span>
             <input
               type="range"
               min={minYear}
               max={maxYear}
               value={year}
-              onChange={e => setYear(+e.target.value)}
+              onChange={(e) => setYear(Number(e.target.value))}
             />
-            <span>{year}</span>
+            <span className="yearMax">{maxYear}</span>
+            <span className="yearNow">{year}</span>
           </div>
         </div>
 
-        <div
-          className="panel soft"
-          onMouseMove={e => setCursor({ x: e.clientX, y: e.clientY, show: true })}
-          onMouseLeave={() => setCursor(c => ({ ...c, show: false }))}
-        >
-          {cursor.show && (
-            <div
-              className="cursorGlow"
-              style={{ left: cursor.x, top: cursor.y }}
-            />
-          )}
+        {/* Fila 2: Resumen + 4 stats en una sola fila */}
+        <div className="summaryRow">
+          <div className="summaryTitle">
+            <h3 style={{ margin: 0 }}>
+              Resumen de {TEMAS.find((t) => t.key === tema)?.label}
+            </h3>
+            <p style={{ margin: "6px 0 0", opacity: 0.85 }}>
+              Selecciona un año o un hito para ver el contexto.
+            </p>
+          </div>
 
-          <ResponsiveContainer width="100%" height={320}>
-            <LineChart data={chartData}>
-              <defs>
-                <linearGradient id="blueGlow" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#00e5ff" stopOpacity={0.9} />
-                  <stop offset="100%" stopColor="#00e5ff" stopOpacity={0.15} />
-                </linearGradient>
-              </defs>
+          <div className="statsRow">
+            <div className="statCard">
+              <div className="k">Año</div>
+              <div className="v">{year}</div>
+            </div>
 
-              <XAxis dataKey="year" stroke="#aaa" />
-              <YAxis stroke="#aaa" />
+            <div className="statCard">
+              <div className="k">Valor</div>
+              <div className="v">{lastPoint?.value ?? "-"}%</div>
+            </div>
 
+            <div className="statCard">
+              <div className="k">Desde {firstPoint?.year ?? "-"}</div>
+              <div className="v">{delta !== null ? `${delta.toFixed(1)}%` : "-"}</div>
+            </div>
 
-              <Tooltip
-                content={({ label, payload }) => {
-                  if (!payload || !payload.length) return null
+            <div className="statCard">
+              <div className="k">Datos</div>
+              <div className="v">{chartData.length}</div>
+            </div>
+          </div>
+        </div>
 
-                  const hito =
-                    HITOS[tema][label as keyof typeof HITOS[typeof tema]]
+        {/* Fila 3: izquierda hitos / derecha gráfico */}
+        <div className="bottomRow">
+          {/* Hitos (izquierda) */}
+          <div className="hitosPanel">
+            <div className="hitoBox">
+              <div className="title">📌 Hito del año</div>
+              <div style={{ opacity: 0.95 }}>
+                {hitoActual ? hitoActual : "No hay hito registrado para este año."}
+              </div>
+            </div>
 
-                  return (
-                    <div className="tooltipBox">
-                      <strong>{label}</strong><br />
-                      Valor: {payload[0].value}%<br />
-                      {hito && <span className="hitoText">📌 {hito}</span>}
-                    </div>
-                  )
-                }}
-              />
-
-
-
-              <Line
-                type="monotone"
-                dataKey="value"
-                stroke="#00e5ff"
-                strokeWidth={3}
-                dot={{ r: 4 }}
-                activeDot={{ r: 8 }}
-                fill="url(#blueGlow)"
-                isAnimationActive
-              />
-
+            <div className="hitosList">
               {Object.entries(HITOS[tema])
-                .filter(([y]) => +y <= year)
-                .map(([y, text]) => {
-                  const point = chartData.find(d => d.year === +y)
+                .sort(([a], [b]) => Number(b) - Number(a))
+                .map(([y, text]) => (
+                  <div
+                    key={y}
+                    className={`hitoItem ${Number(y) === year ? "active" : ""}`}
+                    onClick={() => setYear(Number(y))}
+                    title="Click para saltar a este año"
+                  >
+                    <div className="hitoYear">{y}</div>
+                    <div style={{ lineHeight: 1.2 }}>{text as string}</div>
+                  </div>
+                ))}
+            </div>
+          </div>
+
+          {/* Gráfico (derecha) */}
+          <div
+            className="chartPanel"
+            onMouseMove={(e) => setCursor({ x: e.clientX, y: e.clientY, show: true })}
+            onMouseLeave={() => setCursor((c) => ({ ...c, show: false }))}
+          >
+            {cursor.show && <div className="cursorGlow" style={{ left: cursor.x, top: cursor.y }} />}
+
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={chartData}>
+                <defs>
+                  <linearGradient id="blueGlow" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#00e5ff" stopOpacity={0.9} />
+                    <stop offset="100%" stopColor="#00e5ff" stopOpacity={0.15} />
+                  </linearGradient>
+                </defs>
+
+                <XAxis dataKey="year" stroke="#aaa" />
+                <YAxis stroke="#aaa" />
+
+                <Tooltip
+                  content={({ label, payload }) => {
+                    if (!payload || !payload.length) return null
+                    const hito = HITOS[tema][label as keyof typeof HITOS[typeof tema]]
+                    return (
+                      <div className="tooltipBox">
+                        <strong>{label}</strong><br />
+                        Valor: {payload[0].value}%<br />
+                        {hito && <span className="hitoText">📌 {hito}</span>}
+                      </div>
+                    )
+                  }}
+                />
+
+                <Line
+                  type="monotone"
+                  dataKey="value"
+                  stroke="#00e5ff"
+                  strokeWidth={3}
+                  dot={{ r: 4 }}
+                  activeDot={{ r: 8 }}
+                  fill="url(#blueGlow)"
+                  isAnimationActive
+                />
+
+                {/* Highlight del año seleccionado */}
+                <ReferenceArea x1={year - 0.4} x2={year + 0.4} fill="#00e5ff" fillOpacity={0.12} />
+
+                {(() => {
+                  const point = chartData.find((d) => d.year === year)
                   if (!point) return null
-                  return (
-                    <ReferenceDot
-                      key={y}
-                      x={+y}
-                      y={point.value}
-                      r={7}
-                      fill="#ff3b3b"
-                      stroke="white"
-                      strokeWidth={2}
-                    />
-                  )
-                })}
+                  return <ReferenceDot x={year} y={point.value} r={9} fill="#00e5ff" stroke="white" strokeWidth={2} />
+                })()}
 
-
-              <ReferenceArea x1={rangeA[0]} x2={rangeA[1]} fill="#00ffcc" fillOpacity={0.12} />
-              <ReferenceArea x1={rangeB[0]} x2={rangeB[1]} fill="#ff0066" fillOpacity={0.12} />
-
-
-            </LineChart>
-          </ResponsiveContainer>
+                {/* Hitos */}
+                {Object.entries(HITOS[tema])
+                  .filter(([y]) => Number(y) <= year)
+                  .map(([y]) => {
+                    const p = chartData.find((d) => d.year === Number(y))
+                    if (!p) return null
+                    return <ReferenceDot key={y} x={Number(y)} y={p.value} r={7} fill="#ff3b3b" stroke="white" strokeWidth={2} />
+                  })}
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       </div>
 
