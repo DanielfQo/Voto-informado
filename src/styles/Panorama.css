@@ -2,7 +2,7 @@
 .home{
   margin:0;
   padding:0;
-  background:#e6f1fb;
+  background:#ccd2d9;
   overflow-x:hidden;
 }
 
@@ -72,7 +72,8 @@
   border-radius: 28px;
   padding: 28px;
   margin: 30px auto;
-  max-width: 1200px;
+  width: min(1400px, calc(100vw - 48px));
+  max-width: none;
   display: grid;
   grid-template-rows: auto auto 1fr;
   gap: 22px;
