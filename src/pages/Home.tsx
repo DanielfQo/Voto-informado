@@ -6,6 +6,8 @@ import AddCandidateBubble from "../components/AddCandidateBubble"
 import CandidateDetail from "../components/CandidateDetail"
 import ComparisonModal from "../components/ComparisonModal"
 import { Link } from "react-router-dom"
+import selectCandidateImg from "../assets/icn.png";
+
 
 import {
   Share2,
@@ -222,10 +224,12 @@ const Home: React.FC = () => {
 
     {/* Contenido principal */}
     <div style={{ position: "relative", zIndex: 10, display: "flex", flexDirection: "column", alignItems: "center" }}>
-      <header className="home-header" style={{ marginBottom: "2rem" }}>
-        <h1>Voto Informado</h1>
-        <p>Una visión general del escenario político.</p>
-      </header>
+      <header className="home-header">
+    <div className="home-header-content">
+      <h1>Voto Informado</h1>
+      <p>Una visión general del escenario político.</p>
+    </div>
+  </header>
 
       <section className="section" style={{ width: "100%", maxWidth: "1000px", position: "relative" }}>
         <h2 style={{ textAlign: "center", marginBottom: "1rem" }}>Partidos en contienda</h2>
@@ -253,9 +257,11 @@ const Home: React.FC = () => {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              marginTop: "100px",   // 👈 AJUSTA ESTE VALOR
               marginBottom: "2rem",
-              pointerEvents: "none", // no interfiere con clicks
+              pointerEvents: "none",
             }}
+
           >
             {/* Bola gris */}
             <div
@@ -268,13 +274,22 @@ const Home: React.FC = () => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: "28px",
-                fontWeight: 800,
-                color: "#6b7280",
+                overflow: "hidden", // importante para el círculo
               }}
             >
-              ?
+              <img
+                src={selectCandidateImg}
+                alt="Seleccione candidato"
+                style={{
+                  width: "60%",
+                  height: "60%",
+                  objectFit: "contain",
+                  opacity: 0.85,
+                  pointerEvents: "none",
+                }}
+              />
             </div>
+
 
             {/* Texto */}
             <p

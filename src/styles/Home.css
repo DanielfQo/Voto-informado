@@ -9,10 +9,29 @@
   font-family: system-ui, sans-serif;
 }
 
-/* Header de tu vista burbujas */
 .home-header {
+  position: relative;
+  width: 100%;
+  top: 0;
+  left: 0;
+
+  background-color: #e5e5e6; /* gris claro */
+  padding: 2.5rem 0;
+
+  /* sombra inferior */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+
+  z-index: 20;
+}
+
+.home-header-content {
+  max-width: 960px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  margin-bottom: 2.5rem;
 }
 .home-header h1 {
   font-size: 2.5rem;
@@ -62,13 +81,15 @@
 .bubble .emoji { font-size: 2rem; }
 .bubble .label { font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
 
-/* Fondo partículas (tu vista) */
 .falling-bg {
-  position: absolute;
-  inset: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
-  z-index: 0;
   pointer-events: none;
+  z-index: 0;
 }
 
 .particle {
@@ -82,11 +103,13 @@
 }
 
 @keyframes wind {
-  0% { transform: translateY(0); opacity: 0; }
+  0% { transform: translateY(0vh); opacity: 0; }
   10% { opacity: 0.5; }
   90% { opacity: 0.5; }
   100% { transform: translateY(-120vh); opacity: 0; }
 }
+
+
 
 /* =============================
    VISTA SITUACIÓN ACTUAL (MICHAEL)
