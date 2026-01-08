@@ -7,6 +7,19 @@ import CandidateDetail from "../components/CandidateDetail"
 import ComparisonModal from "../components/ComparisonModal"
 import { Link } from "react-router-dom"
 
+import {
+  Share2,
+  TrendingUp,
+  FileText,
+  Newspaper,
+  Eye,
+  Facebook,
+  Twitter,
+  Instagram,
+} from "lucide-react";
+
+
+
 
 
 // --- CONFIGURACIÓN DE POSICIONES (COLUMNAS LATERALES) ---
@@ -31,7 +44,14 @@ const bubbleItems = positions.map((pos, i) => {
 
 
 // --- NOMBRES DE LAS 5 SUB-BOLAS ---
-const subBolas = ["Redes", "Futuro", "Propuestas", "Noticias", "Visión"];
+const subBolas = [
+  { label: "Redes", icon: Share2 },
+  { label: "Futuro", icon: TrendingUp },
+  { label: "Propuestas", icon: FileText },
+  { label: "Noticias", icon: Newspaper },
+  { label: "Visión", icon: Eye },
+];
+
 
 const WindyBubble: React.FC<{ 
   item: typeof bubbleItems[0]; 
@@ -71,7 +91,7 @@ const WindyBubble: React.FC<{
         x: [item.x, item.x - windParams.xSway, item.x + windParams.xSway * 0.5, item.x],
         y: [item.y - yOffset, item.y - windParams.yBob - yOffset, item.y - yOffset],
         rotate: [0, -windParams.rotate, windParams.rotate / 2, 0],
-        transition: { duration: windParams.duration, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: i * 0.05 }
+        transition: { duration: windParams.duration, repeat: Infinity, repeatType: "mirror" as const, ease: "easeInOut" as const, delay: i * 0.05 }
       };
     },
     selected: {
@@ -81,7 +101,7 @@ const WindyBubble: React.FC<{
       rotate: 0,
       opacity: 1,
       zIndex: 100,
-      transition: { type: "spring", stiffness: 60, damping: 12 }
+      transition: { type: "spring" as const, stiffness: 60, damping: 12 }
     }
   };
 
@@ -338,32 +358,39 @@ const Home: React.FC = () => {
         {/* Sub-bolas centrales */}
         {partidoSeleccionado && secondIndex === null && (
           <div style={{ display: "flex", justifyContent: "center", marginTop: "200px", gap: "20px", zIndex: 200, position: "relative" }}>
-            {subBolas.map((s, idx) => (
+            {subBolas.map(({ label, icon: Icon }, idx) => (
               <motion.div
-                key={s}
+                key={label}
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: idx * 0.1, type: "spring", stiffness: 120 }}
                 style={{
-                  background: selectedSubBola === s ? "#4f46e5" : "white",
-                  color: selectedSubBola === s ? "white" : "black",
+                  background: selectedSubBola === label ? "#4f46e5" : "white",
+                  color: selectedSubBola === label ? "white" : "#1f2937",
                   width: "70px",
                   height: "70px",
                   display: "flex",
+                  flexDirection: "column",
                   alignItems: "center",
                   justifyContent: "center",
                   cursor: "pointer",
+                  borderRadius: "9999px",
                   boxShadow: "0 0 15px rgba(148, 163, 184, 0.35)",
-                  fontSize: "12px",
-                  fontWeight: "bold",
+                  gap: "4px",
+                  fontSize: "10px",
+                  fontWeight: 600,
                   textAlign: "center",
+                  
                 }}
-                onClick={() => setSelectedSubBola(s)}
+                onClick={() => setSelectedSubBola(label)}
                 whileHover={{ scale: 1.2 }}
+                
               >
-                {s}
+                <Icon size={20} strokeWidth={2.2} />
+                <span>{label}</span>
               </motion.div>
             ))}
+
           </div>
         )}
 
@@ -401,12 +428,76 @@ const Home: React.FC = () => {
 
             <div style={{ textAlign: "justify" }}>
               {selectedSubBola === "Redes" && (
-                <p>
-                  <a href={partidoSeleccionado.redes.facebook} target="_blank" rel="noopener noreferrer">Facebook</a> |{" "}
-                  <a href={partidoSeleccionado.redes.twitter} target="_blank" rel="noopener noreferrer">Twitter</a> |{" "}
-                  <a href={partidoSeleccionado.redes.instagram} target="_blank" rel="noopener noreferrer">Instagram</a>
-                </p>
-              )}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "24px",
+                  marginTop: "12px",
+                }}
+              >
+                {partidoSeleccionado.redes.facebook && (
+                  <a
+                    href={partidoSeleccionado.redes.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      textDecoration: "none",
+                      color: "#1877F2",
+                      fontSize: "12px",
+                      fontWeight: 600,
+                    }}
+                  >
+                    <Facebook size={28} />
+                    <span>Facebook</span>
+                  </a>
+                )}
+
+                {partidoSeleccionado.redes.twitter && (
+                  <a
+                    href={partidoSeleccionado.redes.twitter}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      textDecoration: "none",
+                      color: "#1DA1F2",
+                      fontSize: "12px",
+                      fontWeight: 600,
+                    }}
+                  >
+                    <Twitter size={28} />
+                    <span>Twitter</span>
+                  </a>
+                )}
+
+                {partidoSeleccionado.redes.instagram && (
+                  <a
+                    href={partidoSeleccionado.redes.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      textDecoration: "none",
+                      color: "#E1306C",
+                      fontSize: "12px",
+                      fontWeight: 600,
+                    }}
+                  >
+                    <Instagram size={28} />
+                    <span>Instagram</span>
+                  </a>
+                )}
+              </div>
+            )}
+
 
               {selectedSubBola === "Futuro" && <p>{partidoSeleccionado.futuro}</p>}
 
