@@ -18,10 +18,6 @@ import {
   Instagram,
 } from "lucide-react";
 
-
-
-
-
 // --- CONFIGURACIÓN DE POSICIONES (COLUMNAS LATERALES) ---
 const positions = [
   { x: -380, y: 0 }, { x: -460, y: 100 }, { x: -380, y: 200 },
