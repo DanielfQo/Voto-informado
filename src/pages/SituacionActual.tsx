@@ -122,9 +122,19 @@ const SituacionActual: React.FC = () => {
             </div>
 
             <div className="statCard">
-              <div className="k">Valor</div>
-              <div className="v">{lastPoint?.value ?? "-"}%</div>
+              <div className="k">
+                {lastPoint?.value != null
+                  ? lastPoint.value >= 0
+                    ? "Aumentó"
+                    : "Disminuyó"
+                  : "—"}
+              </div>
+
+              <div className="v">
+                {lastPoint?.value != null ? `${lastPoint.value}%` : "-"}
+              </div>
             </div>
+
 
             <div className="statCard">
               <div className="k">Desde {firstPoint?.year ?? "-"}</div>
@@ -132,7 +142,7 @@ const SituacionActual: React.FC = () => {
             </div>
 
             <div className="statCard">
-              <div className="k">Datos</div>
+              <div className="k">Id año</div>
               <div className="v">{chartData.length}</div>
             </div>
           </div>

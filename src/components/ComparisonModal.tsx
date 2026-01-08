@@ -2,6 +2,9 @@ import React, { useMemo, useState } from "react"
 import { motion } from "framer-motion"
 import { partidos } from "../data/data"
 
+// Iconos para los temas
+import { DollarSign, HeartPulse, GraduationCap, Shield, ListFilter, Award, Target } from "lucide-react"
+
 type Partido = typeof partidos[number]
 
 type Props = {
@@ -14,8 +17,19 @@ type Props = {
 type Tema = "Todos" | "Economía" | "Salud" | "Educación" | "Gobernanza"
 type Tipo = "Todos" | "Concreta" | "Promesa"
 
-const TEMAS: Tema[] = ["Todos", "Economía", "Salud", "Educación", "Gobernanza"]
-const TIPOS: Tipo[] = ["Todos", "Concreta", "Promesa"]
+const TEMAS: { value: Tema; label: string; icon: React.ReactNode }[] = [
+  { value: "Todos", label: "Todos", icon: <ListFilter size={16} /> },
+  { value: "Economía", label: "Economía", icon: <DollarSign size={16} /> },
+  { value: "Salud", label: "Salud", icon: <HeartPulse size={16} /> },
+  { value: "Educación", label: "Educación", icon: <GraduationCap size={16} /> },
+  { value: "Gobernanza", label: "Gobernanza", icon: <Shield size={16} /> }
+]
+
+const TIPOS: { value: Tipo; label: string; icon: React.ReactNode }[] = [
+  { value: "Todos", label: "Todos", icon: <ListFilter size={16} /> },
+  { value: "Concreta", label: "Con plan de acción", icon: <Target size={16} /> },
+  { value: "Promesa", label: "Sin plan de acción", icon: <Award size={16} /> }
+]
 
 function filtrarPropuestas(partido: Partido, tema: Tema, tipo: Tipo) {
   return (partido.propuestas || []).filter((p) => {
@@ -26,6 +40,7 @@ function filtrarPropuestas(partido: Partido, tema: Tema, tipo: Tipo) {
 }
 
 function Chip({ children, variant }: { children: React.ReactNode; variant?: "green" | "red" }) {
+  // Usando los colores de tu CSS
   const bg = variant === "green" ? "rgba(34,197,94,0.12)" : "rgba(239,68,68,0.12)"
   const bd = variant === "green" ? "rgba(34,197,94,0.35)" : "rgba(239,68,68,0.35)"
   const tx = variant === "green" ? "#166534" : "#991b1b"
@@ -35,14 +50,15 @@ function Chip({ children, variant }: { children: React.ReactNode; variant?: "gre
       style={{
         display: "inline-flex",
         alignItems: "center",
-        padding: "4px 10px",
+        padding: "6px 12px",
         borderRadius: "999px",
         fontSize: "12px",
-        fontWeight: 800,
+        fontWeight: 700,
         background: bg,
         border: `1px solid ${bd}`,
         color: tx,
         whiteSpace: "nowrap",
+        gap: "4px",
       }}
     >
       {children}
@@ -68,7 +84,8 @@ const ComparisonModal: React.FC<Props> = ({ open, left, right, onClose }) => {
         position: "fixed",
         inset: 0,
         zIndex: 9999,
-        background: "rgba(0,0,0,0.25)",
+        background: "rgba(15, 23, 42, 0.7)",
+        backdropFilter: "blur(8px)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -81,17 +98,32 @@ const ComparisonModal: React.FC<Props> = ({ open, left, right, onClose }) => {
         animate={{ y: 0, scale: 1 }}
         transition={{ duration: 0.25 }}
         style={{
-          width: "min(1000px, 95vw)",
-          height: "min(720px, 85vh)",   // ✅ alto fijo
-          overflow: "hidden",          // ✅ scroll interno
-          background: "rgba(255,255,255,0.98)",
-          borderRadius: "22px",
-          boxShadow: "0 20px 60px rgba(0,0,0,0.25)",
+          width: "min(1200px, 95vw)",
+          height: "min(720px, 85vh)",
+          overflow: "hidden",
+          background: "rgba(255, 255, 255, 0.85)",
+          backdropFilter: "blur(20px) saturate(180%)",
+          borderRadius: "28px",
+          border: "1px solid rgba(18, 55, 90, 0.14)",
+          boxShadow: "0 25px 70px rgba(0, 0, 0, 0.25)",
           display: "flex",
           flexDirection: "column",
+          position: "relative",
         }}
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Capa de fondo sutil */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "url('/Images/fondos/panel-bg.png') center/cover no-repeat",
+            opacity: 0.08,
+            borderRadius: "28px",
+            zIndex: -1,
+          }}
+        />
+
         {/* HEADER FIJO */}
         <div
           style={{
@@ -99,32 +131,69 @@ const ComparisonModal: React.FC<Props> = ({ open, left, right, onClose }) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            padding: "14px 18px",
-            borderBottom: "1px solid rgba(0,0,0,0.08)",
-            background: "rgba(255,255,255,0.98)",
-            gap: 12,
+            padding: "20px 24px",
+            borderBottom: "1px solid rgba(18, 55, 90, 0.08)",
+            background: "rgba(255, 255, 255, 0.85)",
+            backdropFilter: "blur(10px)",
+            gap: "16px",
           }}
         >
-          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-            <h3 style={{ margin: 0, fontSize: 18 }}>Comparación</h3>
-            <div style={{ color: "#6b7280", fontSize: 12, fontWeight: 600 }}>
-              Filtra por tema y diferencia <b>Promesas</b> vs <b>Propuestas Concretas</b>.
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+            <h3 style={{ 
+              margin: 0, 
+              fontSize: "20px", 
+              fontWeight: 700, 
+              color: "#0f172a",
+              display: "flex",
+              alignItems: "center",
+              gap: "10px"
+            }}>
+              Comparación de Propuestas
+            </h3>
+            <div style={{ 
+              color: "rgba(15, 23, 42, 0.7)", 
+              fontSize: "13px", 
+              fontWeight: 600,
+              display: "flex",
+              alignItems: "center",
+              gap: "8px"
+            }}>
+              <span style={{ 
+                background: "rgba(37, 99, 235, 0.1)", 
+                padding: "4px 10px", 
+                borderRadius: "6px",
+                border: "1px solid rgba(37, 99, 235, 0.2)"
+              }}>
+                {left.nombre} vs {right.nombre}
+              </span>
+              <span>Filtra por tema y tipo para comparar</span>
             </div>
           </div>
 
           <button
             onClick={onClose}
             style={{
-              border: "none",
-              background: "#ef4444",
-              color: "white",
-              padding: "8px 12px",
-              borderRadius: "10px",
+              background: "rgba(239, 68, 68, 0.1)",
+              color: "#ef4444",
+              padding: "10px 16px",
+              borderRadius: "12px",
               cursor: "pointer",
-              fontWeight: 800,
+              fontWeight: 700,
+              fontSize: "14px",
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+              border: "1px solid rgba(239, 68, 68, 0.2)",
+              transition: "all 0.2s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "rgba(239, 68, 68, 0.2)"
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "rgba(239, 68, 68, 0.1)"
             }}
           >
-            Cerrar
+            ✕ Cerrar
           </button>
         </div>
 
@@ -132,59 +201,104 @@ const ComparisonModal: React.FC<Props> = ({ open, left, right, onClose }) => {
         <div
           style={{
             flex: "0 0 auto",
-            padding: "12px 18px",
-            borderBottom: "1px solid rgba(0,0,0,0.06)",
+            padding: "16px 24px",
+            borderBottom: "1px solid rgba(18, 55, 90, 0.06)",
             display: "flex",
-            gap: 10,
+            gap: "24px",
             flexWrap: "wrap",
             alignItems: "center",
-            justifyContent: "space-between",
+            background: "rgba(255, 255, 255, 0.62)",
+            backdropFilter: "blur(10px)",
           }}
         >
           {/* Tema */}
-          <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
-            <span style={{ fontSize: 12, fontWeight: 800, color: "#374151" }}>Tema:</span>
-            {TEMAS.map((t) => (
-              <button
-                key={t}
-                onClick={() => setTema(t)}
-                style={{
-                  border: "1px solid rgba(0,0,0,0.12)",
-                  background: tema === t ? "#111827" : "white",
-                  color: tema === t ? "white" : "#111827",
-                  padding: "7px 10px",
-                  borderRadius: "999px",
-                  fontSize: 12,
-                  fontWeight: 800,
-                  cursor: "pointer",
-                }}
-              >
-                {t}
-              </button>
-            ))}
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+            <div style={{ fontSize: "13px", fontWeight: 700, color: "#374151", display: "flex", alignItems: "center", gap: "6px" }}>
+              <ListFilter size={14} /> Tema
+            </div>
+            <div style={{ display: "flex", gap: "8px", alignItems: "center", flexWrap: "wrap" }}>
+              {TEMAS.map((t) => (
+                <button
+                  key={t.value}
+                  onClick={() => setTema(t.value)}
+                  style={{
+                    border: "1px solid rgba(18, 55, 90, 0.14)",
+                    background: tema === t.value ? "rgba(37, 99, 235, 0.18)" : "rgba(255, 255, 255, 0.8)",
+                    color: tema === t.value ? "#0f172a" : "#0f172a",
+                    padding: "10px 16px",
+                    borderRadius: "16px",
+                    fontSize: "13px",
+                    fontWeight: 700,
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    transition: "all 0.2s ease",
+                    backdropFilter: "blur(10px)",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (tema !== t.value) {
+                      e.currentTarget.style.background = "rgba(37, 99, 235, 0.1)"
+                      e.currentTarget.style.borderColor = "rgba(37, 99, 235, 0.28)"
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (tema !== t.value) {
+                      e.currentTarget.style.background = "rgba(255, 255, 255, 0.8)"
+                      e.currentTarget.style.borderColor = "rgba(18, 55, 90, 0.14)"
+                    }
+                  }}
+                >
+                  {t.icon}
+                  <span>{t.label}</span>
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Tipo */}
-          <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
-            <span style={{ fontSize: 12, fontWeight: 800, color: "#374151" }}>Tipo:</span>
-            {TIPOS.map((x) => (
-              <button
-                key={x}
-                onClick={() => setTipo(x)}
-                style={{
-                  border: "1px solid rgba(0,0,0,0.12)",
-                  background: tipo === x ? "#4f46e5" : "white",
-                  color: tipo === x ? "white" : "#111827",
-                  padding: "7px 10px",
-                  borderRadius: "999px",
-                  fontSize: 12,
-                  fontWeight: 800,
-                  cursor: "pointer",
-                }}
-              >
-                {x}
-              </button>
-            ))}
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+            <div style={{ fontSize: "13px", fontWeight: 700, color: "#374151", display: "flex", alignItems: "center", gap: "6px" }}>
+              <Target size={14} /> Tipo
+            </div>
+            <div style={{ display: "flex", gap: "8px", alignItems: "center", flexWrap: "wrap" }}>
+              {TIPOS.map((x) => (
+                <button
+                  key={x.value}
+                  onClick={() => setTipo(x.value)}
+                  style={{
+                    border: "1px solid rgba(18, 55, 90, 0.14)",
+                    background: tipo === x.value ? "rgba(37, 99, 235, 0.18)" : "rgba(255, 255, 255, 0.8)",
+                    color: tipo === x.value ? "#0f172a" : "#0f172a",
+                    padding: "10px 16px",
+                    borderRadius: "16px",
+                    fontSize: "13px",
+                    fontWeight: 700,
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    transition: "all 0.2s ease",
+                    backdropFilter: "blur(10px)",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (tipo !== x.value) {
+                      e.currentTarget.style.background = "rgba(37, 99, 235, 0.1)"
+                      e.currentTarget.style.borderColor = "rgba(37, 99, 235, 0.28)"
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (tipo !== x.value) {
+                      e.currentTarget.style.background = "rgba(255, 255, 255, 0.8)"
+                      e.currentTarget.style.borderColor = "rgba(18, 55, 90, 0.14)"
+                    }
+                  }}
+                >
+                  {x.icon}
+                  <span>{x.label}</span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -193,61 +307,178 @@ const ComparisonModal: React.FC<Props> = ({ open, left, right, onClose }) => {
           style={{
             flex: "1 1 auto",
             overflowY: "auto",
-            padding: "16px 18px",
+            padding: "24px",
+            background: "rgba(255, 255, 255, 0.3)",
           }}
         >
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-            {/* COLUMNA IZQ */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
+            {/* COLUMNA IZQUIERDA */}
             <div
               style={{
-                border: "1px solid rgba(0,0,0,0.08)",
-                borderRadius: 16,
+                border: "1px solid rgba(18, 55, 90, 0.08)",
+                borderRadius: "20px",
                 overflow: "hidden",
-                background: "white",
+                background: "rgba(255, 255, 255, 0.85)",
+                backdropFilter: "blur(10px)",
+                boxShadow: "0 10px 30px rgba(10, 20, 40, 0.12)",
               }}
             >
-              <div style={{ padding: 14, borderBottom: "1px solid rgba(0,0,0,0.06)" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  <img src={left.logo} alt={left.nombre} style={{ width: 46, height: 46, objectFit: "contain" }} />
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <div style={{ fontWeight: 900, fontSize: 16 }}>{left.nombre}</div>
-                    <div style={{ fontSize: 12, color: "#6b7280", fontWeight: 600 }}>
-                      {leftList.length} propuestas en este filtro
-                    </div>
+              {/* Header columna izquierda */}
+              <div style={{ 
+                padding: "20px", 
+                borderBottom: "1px solid rgba(18, 55, 90, 0.06)",
+                background: "rgba(255, 255, 255, 0.9)",
+                display: "flex",
+                alignItems: "center",
+                gap: "16px"
+              }}>
+                <div style={{
+                  width: "60px",
+                  height: "60px",
+                  borderRadius: "14px",
+                  background: "white",
+                  border: "1px solid rgba(18, 55, 90, 0.1)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "8px",
+                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08)"
+                }}>
+                  <img 
+                    src={left.logo} 
+                    alt={left.nombre} 
+                    style={{ 
+                      width: "100%", 
+                      height: "100%", 
+                      objectFit: "contain" 
+                    }} 
+                  />
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+                  <div style={{ 
+                    fontWeight: 900, 
+                    fontSize: "18px", 
+                    color: "#0f172a",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px"
+                  }}>
+                    {left.nombre}
+                    <span style={{
+                      background: "rgba(37, 99, 235, 0.1)",
+                      color: "#2563eb",
+                      padding: "4px 10px",
+                      borderRadius: "20px",
+                      fontSize: "12px",
+                      fontWeight: 700,
+                      border: "1px solid rgba(37, 99, 235, 0.2)"
+                    }}>
+                      {leftList.length} propuestas
+                    </span>
+                  </div>
+                  <div style={{ 
+                    fontSize: "13px", 
+                    color: "rgba(15, 23, 42, 0.7)", 
+                    fontWeight: 600 
+                  }}>
+                    {left.candidato?.nombre && `Candidato: ${left.candidato.nombre}`}
                   </div>
                 </div>
               </div>
 
-              <div style={{ padding: 14, display: "flex", flexDirection: "column", gap: 10 }}>
+              {/* Lista de propuestas izquierda */}
+              <div style={{ padding: "20px", display: "flex", flexDirection: "column", gap: "16px" }}>
                 {leftList.map((p) => {
                   const isConcreta = p.tipo === "Concreta"
                   return (
                     <div
                       key={p.id}
                       style={{
-                        border: "1px solid rgba(0,0,0,0.08)",
-                        borderRadius: 14,
-                        padding: 12,
+                        border: "1px solid rgba(18, 55, 90, 0.08)",
+                        borderRadius: "16px",
+                        padding: "18px",
+                        background: "white",
+                        boxShadow: "0 4px 16px rgba(0, 0, 0, 0.05)",
+                        transition: "transform 0.2s ease",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = "translateY(-4px)"
+                        e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.12)"
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = "translateY(0)"
+                        e.currentTarget.style.boxShadow = "0 4px 16px rgba(0, 0, 0, 0.05)"
                       }}
                     >
-                      <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "start" }}>
-                        <div style={{ fontWeight: 900 }}>{p.titulo}</div>
-                        <Chip variant={isConcreta ? "green" : "red"}>{p.tipo}</Chip>
+                      <div style={{ display: "flex", justifyContent: "space-between", gap: "12px", alignItems: "start" }}>
+                        <div style={{ 
+                          fontWeight: 900, 
+                          fontSize: "15px", 
+                          color: "#0f172a",
+                          flex: 1
+                        }}>
+                          {p.titulo}
+                        </div>
+                        <Chip variant={isConcreta ? "green" : "red"}>
+                          {isConcreta ? "Con plan de acción" : "Sin plan de acción"}
+                        </Chip>
                       </div>
 
-                      <div style={{ marginTop: 6, fontSize: 12, color: "#6b7280", fontWeight: 700 }}>
-                        {p.tema}
+                      <div style={{ 
+                        marginTop: "8px", 
+                        fontSize: "13px", 
+                        color: "#374151", 
+                        fontWeight: 700,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px"
+                      }}>
+                        <span style={{
+                          background: "rgba(37, 99, 235, 0.1)",
+                          padding: "4px 10px",
+                          borderRadius: "12px",
+                          border: "1px solid rgba(37, 99, 235, 0.2)"
+                        }}>
+                          {p.tema}
+                        </span>
                       </div>
 
-                      {/* lenguaje simple */}
+                      {/* Explicación */}
                       {p.explicacion && (
-                        <div style={{ marginTop: 8, fontSize: 13, color: "#111827" }}>{p.explicacion}</div>
+                        <div style={{ 
+                          marginTop: "12px", 
+                          fontSize: "14px", 
+                          color: "#0f172a",
+                          lineHeight: 1.5
+                        }}>
+                          {p.explicacion}
+                        </div>
                       )}
 
-                      {/* problema real */}
+                      {/* Problema */}
                       {p.problema && (
-                        <div style={{ marginTop: 8, fontSize: 12, color: "#374151" }}>
-                          <b>Problema:</b> {p.problema}
+                        <div style={{ 
+                          marginTop: "12px", 
+                          padding: "12px",
+                          background: "rgba(239, 68, 68, 0.05)",
+                          border: "1px solid rgba(239, 68, 68, 0.1)",
+                          borderRadius: "12px"
+                        }}>
+                          <div style={{ 
+                            fontSize: "12px", 
+                            color: "#ef4444", 
+                            fontWeight: 700,
+                            marginBottom: "4px"
+                          }}>
+                            Problema identificado:
+                          </div>
+                          <div style={{ 
+                            fontSize: "13px", 
+                            color: "#374151",
+                            fontWeight: 600
+                          }}>
+                            {p.problema}
+                          </div>
                         </div>
                       )}
                     </div>
@@ -255,62 +486,188 @@ const ComparisonModal: React.FC<Props> = ({ open, left, right, onClose }) => {
                 })}
 
                 {leftList.length === 0 && (
-                  <div style={{ color: "#6b7280", fontWeight: 700, padding: 10 }}>
-                    No hay propuestas para este filtro.
+                  <div style={{ 
+                    textAlign: "center", 
+                    color: "rgba(15, 23, 42, 0.6)", 
+                    fontWeight: 700, 
+                    padding: "40px 20px",
+                    background: "rgba(255, 255, 255, 0.8)",
+                    borderRadius: "16px",
+                    border: "1px dashed rgba(18, 55, 90, 0.1)"
+                  }}>
+                    📭 No hay propuestas para este filtro
                   </div>
                 )}
               </div>
             </div>
 
-            {/* COLUMNA DER */}
+            {/* COLUMNA DERECHA */}
             <div
               style={{
-                border: "1px solid rgba(0,0,0,0.08)",
-                borderRadius: 16,
+                border: "1px solid rgba(18, 55, 90, 0.08)",
+                borderRadius: "20px",
                 overflow: "hidden",
-                background: "white",
+                background: "rgba(255, 255, 255, 0.85)",
+                backdropFilter: "blur(10px)",
+                boxShadow: "0 10px 30px rgba(10, 20, 40, 0.12)",
               }}
             >
-              <div style={{ padding: 14, borderBottom: "1px solid rgba(0,0,0,0.06)" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  <img src={right.logo} alt={right.nombre} style={{ width: 46, height: 46, objectFit: "contain" }} />
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <div style={{ fontWeight: 900, fontSize: 16 }}>{right.nombre}</div>
-                    <div style={{ fontSize: 12, color: "#6b7280", fontWeight: 600 }}>
-                      {rightList.length} propuestas en este filtro
-                    </div>
+              {/* Header columna derecha */}
+              <div style={{ 
+                padding: "20px", 
+                borderBottom: "1px solid rgba(18, 55, 90, 0.06)",
+                background: "rgba(255, 255, 255, 0.9)",
+                display: "flex",
+                alignItems: "center",
+                gap: "16px"
+              }}>
+                <div style={{
+                  width: "60px",
+                  height: "60px",
+                  borderRadius: "14px",
+                  background: "white",
+                  border: "1px solid rgba(18, 55, 90, 0.1)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "8px",
+                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08)"
+                }}>
+                  <img 
+                    src={right.logo} 
+                    alt={right.nombre} 
+                    style={{ 
+                      width: "100%", 
+                      height: "100%", 
+                      objectFit: "contain" 
+                    }} 
+                  />
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+                  <div style={{ 
+                    fontWeight: 900, 
+                    fontSize: "18px", 
+                    color: "#0f172a",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px"
+                  }}>
+                    {right.nombre}
+                    <span style={{
+                      background: "rgba(37, 99, 235, 0.1)",
+                      color: "#2563eb",
+                      padding: "4px 10px",
+                      borderRadius: "20px",
+                      fontSize: "12px",
+                      fontWeight: 700,
+                      border: "1px solid rgba(37, 99, 235, 0.2)"
+                    }}>
+                      {rightList.length} propuestas
+                    </span>
+                  </div>
+                  <div style={{ 
+                    fontSize: "13px", 
+                    color: "rgba(15, 23, 42, 0.7)", 
+                    fontWeight: 600 
+                  }}>
+                    {right.candidato?.nombre && `Candidato: ${right.candidato.nombre}`}
                   </div>
                 </div>
               </div>
 
-              <div style={{ padding: 14, display: "flex", flexDirection: "column", gap: 10 }}>
+              {/* Lista de propuestas derecha */}
+              <div style={{ padding: "20px", display: "flex", flexDirection: "column", gap: "16px" }}>
                 {rightList.map((p) => {
                   const isConcreta = p.tipo === "Concreta"
                   return (
                     <div
                       key={p.id}
                       style={{
-                        border: "1px solid rgba(0,0,0,0.08)",
-                        borderRadius: 14,
-                        padding: 12,
+                        border: "1px solid rgba(18, 55, 90, 0.08)",
+                        borderRadius: "16px",
+                        padding: "18px",
+                        background: "white",
+                        boxShadow: "0 4px 16px rgba(0, 0, 0, 0.05)",
+                        transition: "transform 0.2s ease",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = "translateY(-4px)"
+                        e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.12)"
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = "translateY(0)"
+                        e.currentTarget.style.boxShadow = "0 4px 16px rgba(0, 0, 0, 0.05)"
                       }}
                     >
-                      <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "start" }}>
-                        <div style={{ fontWeight: 900 }}>{p.titulo}</div>
-                        <Chip variant={isConcreta ? "green" : "red"}>{p.tipo}</Chip>
+                      <div style={{ display: "flex", justifyContent: "space-between", gap: "12px", alignItems: "start" }}>
+                        <div style={{ 
+                          fontWeight: 900, 
+                          fontSize: "15px", 
+                          color: "#0f172a",
+                          flex: 1
+                        }}>
+                          {p.titulo}
+                        </div>
+                        <Chip variant={isConcreta ? "green" : "red"}>
+                          {isConcreta ? "Con plan de acción" : "Sin plan de acción"}
+                        </Chip>
                       </div>
 
-                      <div style={{ marginTop: 6, fontSize: 12, color: "#6b7280", fontWeight: 700 }}>
-                        {p.tema}
+                      <div style={{ 
+                        marginTop: "8px", 
+                        fontSize: "13px", 
+                        color: "#374151", 
+                        fontWeight: 700,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px"
+                      }}>
+                        <span style={{
+                          background: "rgba(37, 99, 235, 0.1)",
+                          padding: "4px 10px",
+                          borderRadius: "12px",
+                          border: "1px solid rgba(37, 99, 235, 0.2)"
+                        }}>
+                          {p.tema}
+                        </span>
                       </div>
 
+                      {/* Explicación */}
                       {p.explicacion && (
-                        <div style={{ marginTop: 8, fontSize: 13, color: "#111827" }}>{p.explicacion}</div>
+                        <div style={{ 
+                          marginTop: "12px", 
+                          fontSize: "14px", 
+                          color: "#0f172a",
+                          lineHeight: 1.5
+                        }}>
+                          {p.explicacion}
+                        </div>
                       )}
 
+                      {/* Problema */}
                       {p.problema && (
-                        <div style={{ marginTop: 8, fontSize: 12, color: "#374151" }}>
-                          <b>Problema:</b> {p.problema}
+                        <div style={{ 
+                          marginTop: "12px", 
+                          padding: "12px",
+                          background: "rgba(239, 68, 68, 0.05)",
+                          border: "1px solid rgba(239, 68, 68, 0.1)",
+                          borderRadius: "12px"
+                        }}>
+                          <div style={{ 
+                            fontSize: "12px", 
+                            color: "#ef4444", 
+                            fontWeight: 700,
+                            marginBottom: "4px"
+                          }}>
+                            Problema identificado:
+                          </div>
+                          <div style={{ 
+                            fontSize: "13px", 
+                            color: "#374151",
+                            fontWeight: 600
+                          }}>
+                            {p.problema}
+                          </div>
                         </div>
                       )}
                     </div>
@@ -318,8 +675,16 @@ const ComparisonModal: React.FC<Props> = ({ open, left, right, onClose }) => {
                 })}
 
                 {rightList.length === 0 && (
-                  <div style={{ color: "#6b7280", fontWeight: 700, padding: 10 }}>
-                    No hay propuestas para este filtro.
+                  <div style={{ 
+                    textAlign: "center", 
+                    color: "rgba(15, 23, 42, 0.6)", 
+                    fontWeight: 700, 
+                    padding: "40px 20px",
+                    background: "rgba(255, 255, 255, 0.8)",
+                    borderRadius: "16px",
+                    border: "1px dashed rgba(18, 55, 90, 0.1)"
+                  }}>
+                    📭 No hay propuestas para este filtro
                   </div>
                 )}
               </div>
@@ -327,25 +692,39 @@ const ComparisonModal: React.FC<Props> = ({ open, left, right, onClose }) => {
           </div>
         </div>
 
-        {/* FOOTER (opcional) */}
+        {/* FOOTER */}
         <div
           style={{
             flex: "0 0 auto",
-            padding: "10px 18px",
-            borderTop: "1px solid rgba(0,0,0,0.06)",
-            background: "rgba(255,255,255,0.98)",
+            padding: "16px 24px",
+            borderTop: "1px solid rgba(18, 55, 90, 0.06)",
+            background: "rgba(255, 255, 255, 0.9)",
+            backdropFilter: "blur(10px)",
             display: "flex",
             justifyContent: "space-between",
-            fontSize: 12,
-            color: "#6b7280",
-            fontWeight: 700,
+            alignItems: "center",
+            fontSize: "13px",
+            color: "rgba(15, 23, 42, 0.7)",
+            fontWeight: 600,
           }}
         >
-          <span>
-            Criterio: <b>{tema}</b> • Tipo: <b>{tipo}</b>
+          <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <span style={{
+              background: "rgba(37, 99, 235, 0.1)",
+              padding: "6px 12px",
+              borderRadius: "12px",
+              border: "1px solid rgba(37, 99, 235, 0.2)"
+            }}>
+              📋 Criterio: <b>{tema}</b> • Tipo: <b>{tipo}</b>
+            </span>
           </span>
-          <span>
-            Consejo: filtra por tema → mira chips (Concreta/Promesa) → compara enfoque.
+          <span style={{
+            background: "rgba(56, 189, 248, 0.1)",
+            padding: "6px 12px",
+            borderRadius: "12px",
+            border: "1px solid rgba(56, 189, 248, 0.2)"
+          }}>
+            💡 Consejo: Filtra por tema → Revisa promesas vs concretas → Compara enfoques
           </span>
         </div>
       </motion.div>
