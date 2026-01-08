@@ -36,11 +36,14 @@ const SituacionActual: React.FC = () => {
     setYear(maxYear)
   }, [tema, maxYear])
 
-  const chartData = DATA_ACTUALIDAD[tema].filter((d) => d.year <= year)
+  const chartData = DATA_ACTUALIDAD[tema]     // <- siempre toda la serie
+  const partialData = DATA_ACTUALIDAD[tema].filter(d => d.year <= year)
+
 
   // Stats para el panel izquierdo
-  const lastPoint = chartData[chartData.length - 1]
-  const firstPoint = chartData[0]
+  const lastPoint = partialData[partialData.length - 1]
+  const firstPoint = partialData[0]
+
   const delta = firstPoint && lastPoint ? (lastPoint.value - firstPoint.value) : null
 
   // Hito del año seleccionado
@@ -231,20 +234,29 @@ const SituacionActual: React.FC = () => {
                 })()}
 
                 {/* Hitos */}
-                {Object.entries(HITOS[tema])
-                  .filter(([y]) => Number(y) <= year)
-                  .map(([y]) => {
-                    const p = chartData.find((d) => d.year === Number(y))
-                    if (!p) return null
-                    return <ReferenceDot key={y} x={Number(y)} y={p.value} r={7} fill="#ff3b3b" stroke="white" strokeWidth={2} />
-                  })}
+                {Object.entries(HITOS[tema]).map(([y]) => {
+                  const p = chartData.find(d => d.year === Number(y))
+                  if (!p) return null
+                  return (
+                    <ReferenceDot
+                      key={y}
+                      x={Number(y)}
+                      y={p.value}
+                      r={7}
+                      fill="#ff3b3b"
+                      stroke="white"
+                      strokeWidth={2}
+                    />
+                  )
+                })}
+
               </LineChart>
             </ResponsiveContainer>
           </div>
         </div>
       </div>
 
-      
+
     </div>
   )
 }
