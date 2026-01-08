@@ -1,22 +1,55 @@
+/* ===== ESTILOS GENERALES ===== */
 .home{
   margin:0;
   padding:0;
-  background:#e6f1fb;
+  background:#ccd2d9;
   overflow-x:hidden;
 }
 
-/* ───────── CARRUSEL FULLSCREEN ───────── */
+:root{
+  /* tamaños */
+  --carousel-h: 30vh;
+  --carousel-h-min: 160px;
+  --carousel-h-max: 260px;
+
+  /* base */
+  --bg: #eaf2fb;              /* fondo general */
+  --bg2: #dfeaf7;             /* degradado suave */
+  --ink: #0f172a;             /* texto principal */
+  --muted: rgba(15, 23, 42, .70);
+
+  /* glass */
+  --glass: rgba(255,255,255,.62);
+  --glass-2: rgba(255,255,255,.48);
+  --stroke: rgba(18, 55, 90, .14);
+  --shadow: 0 18px 50px rgba(10, 20, 40, .12);
+
+  /* azul principal (acento) */
+  --accent: #2563eb;          /* blue 600 */
+  --accent-2: #38bdf8;        /* sky 400 (suave) */
+  --accent-soft: rgba(37, 99, 235, .16);
+  --accent-border: rgba(37, 99, 235, .28);
+
+  /* estados */
+  --hover: rgba(37, 99, 235, .10);
+  --active: linear-gradient(135deg, rgba(37, 99, 235, .18), rgba(56, 189, 248, .16));
+
+  /* crítico */
+  --danger: #ef4444;          /* rojo para hitos/puntos */
+}
+
+/* ===== CARRUSEL FULLSCREEN ===== */
 .carousel{
-  height:50vh;
-  width:100vw;
+  height: clamp(var(--carousel-h-min), var(--carousel-h), var(--carousel-h-max));
+  width: 100vw;
 }
 
 .slide{
-  position:relative;
-  height:50vh;
-  width:100vw;
+  position: relative;
+  height: 100%;
+  width: 100vw;
   border-radius: 25px;
-  overflow:hidden;
+  overflow: hidden;
 }
 
 .slide img{
@@ -27,15 +60,13 @@
   transition: 0.8s ease;
 }
 
-/* Hover: vuelve al color real */
 .slide:hover img{
   filter:none;
 }
 
-/* Texto flotante */
 .slideText{
   position:absolute;
-  bottom:50px;
+  bottom:30px;
   left:60px;
   color:white;
   font-size:2.6rem;
@@ -43,214 +74,510 @@
   text-shadow:0 0 25px rgba(0,0,0,.8);
 }
 
-/* ───────── ZONA INFERIOR ───────── */
-.panelZone{
-  background:#e6f1fb;
-  padding:40px 0 80px 0;
-}
+/* ===== FONDO GENERAL ===== */
+.home{ background: var(--bg); }
 
-/* Botones de temas */
-.temas{
-  display:flex;
-  justify-content:center;
-  gap:30px;
-  margin-top:40px;
-}
-
-.temas button{
-  border:none;
-  padding:14px 40px;
-  font-size:1.1rem;
-  border-radius:30px;
-  cursor:pointer;
-  background:white;
-  box-shadow:0 10px 25px rgba(0,0,0,.15);
-  transition:.3s;
-}
-
-.temas button:hover{
-  transform:scale(1.05);
-}
-
-.temas .activo{
-  background:#003b73;
-  color:white;
-}
-
-/* Timeline */
-.timeline{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:20px;
-  margin-top:30px;
-  font-weight:600;
-}
-
-/* Panel gráfico */
-.panel{
-  width:85%;
-  margin:40px auto;
-  background:white;
-  padding:30px;
-  border-radius:20px;
-  box-shadow:0 15px 40px rgba(0,0,0,.2);
-}
-
-/* CTA */
-.cta{
-  display:block;
-  margin:50px auto 0 auto;
-  background:#003b73;
-  color:white;
-  border:none;
-  border-radius:50px;
-  padding:20px 70px;
-  font-size:1.5rem;
-  letter-spacing:2px;
-  cursor:pointer;
-  transition:.3s;
-}
-
-.cta:hover{
-  background:#005bb5;
-  transform:scale(1.05);
-}
-
-/* ───────── TOOLTIP FLOATING ───────── */
-.tooltipBox {
-  padding: 12px 18px;
-  border-radius: 14px;
-  font-weight: 700;
-  font-size: 15px;
-  backdrop-filter: blur(6px);
-  background: rgba(10, 15, 25, 0.85);
-  box-shadow: 0 0 25px rgba(0,0,0,.7);
-  animation: floatTooltip .6s ease;
-}
-
-/* VERDE */
-.tooltipBox.pos {
-  color: #00ff9c;
-  border: 2px solid #00ff9c;
-  box-shadow:
-    0 0 20px rgba(0,255,156,.7),
-    0 0 40px rgba(0,255,156,.25);
-}
-
-/* ROJO */
-.tooltipBox.neg {
-  color: #ff3b3b;
-  border: 2px solid #ff3b3b;
-  box-shadow:
-    0 0 20px rgba(255,59,59,.7),
-    0 0 40px rgba(255,59,59,.25);
-}
-
-@keyframes floatTooltip {
-  from { transform: translateY(10px) scale(.9); opacity: 0; }
-  to   { transform: translateY(0) scale(1); opacity: 1; }
-}
-
-
-/* ───────── PANEL ZONE CON FONDO ───────── */
-.panelZone {
-  position: relative;
-  padding: 60px 30px;
-  margin-top: 30px;
-  border-radius: 35px;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0,0,0,.5);
-}
-
-/* IMAGEN DE FONDO */
-.panelZone::before {
-  content: "";
-  position: absolute;
+.globalBackground{
+  position: fixed;
   inset: 0;
-  background: url("/public/Images/fondos/panel-bg.png") center/cover no-repeat;
-  opacity: 0.95;              /* ← transparencia real */
-  filter: saturate(1.2);
-  z-index: 0;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(37, 99, 235, 0.16), transparent 45%),
+    radial-gradient(circle at 80% 70%, rgba(56, 189, 248, 0.14), transparent 50%),
+    linear-gradient(180deg, var(--bg) 0%, #f6fbff 55%, var(--bg2) 100%);
+  z-index: -1;
+  animation: holoMove 18s linear infinite;
 }
 
-/* CAPA GLASS */
-.panelZone::after {
-  content: "";
-  position: absolute;
-  inset: 0; /* oscurece sin matar la textura */
-  backdrop-filter: blur(6px);
+
+
+@keyframes holoMove {
+  0% { background-position: 0% 0%, 100% 100%, center; }
+  50% { background-position: 100% 100%, 0% 0%, center; }
+  100% { background-position: 0% 0%, 100% 100%, center; }
+}
+
+/* ===== PANEL ZONE CON 3 FILAS (MENOS TRANSPARENTE) ===== */
+.panelZone.layout3 {
+  background: var(--glass);
+  border: 1px solid var(--stroke);
+  backdrop-filter: blur(18px) saturate(140%);
+  border-radius: 28px;
+  padding: 28px;
+  margin: 30px auto;
+  width: min(1400px, calc(100vw - 48px));
+  max-width: none;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: 22px;
+  box-shadow: 
+    0 25px 70px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
   z-index: 1;
 }
 
-/* TODO lo que va dentro queda por encima */
-.panelZone > * {
+/* Capa de fondo sutil para el panel */
+.panelZone.layout3::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("/Images/fondos/panel-bg.png") center/cover no-repeat;
+  opacity: 0.08;
+  border-radius: 28px;
+  z-index: -1;
+}
+
+/* ===== FILA 1: TEMAS + SLIDER ===== */
+.topRow {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 12px;
+  align-items: center;
+}
+
+.temasRow {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Botones de temas */
+.temaBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  background: var(--glass-2);
+  border: 1px solid var(--stroke);
+  color: var(--ink);
+  padding: 14px 22px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-weight: 650;
+  backdrop-filter: blur(10px);
+}
+
+.temaBtn:hover {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,.72);
+  border-color: var(--accent-border);
+  box-shadow: 0 10px 22px rgba(37, 99, 235, .10);
+}
+
+.temaBtn.activo {
+  background: var(--active);
+  border-color: var(--accent-border);
+  color: var(--ink);
+  box-shadow: 0 12px 26px rgba(37, 99, 235, .14);
+}
+
+
+/* Timeline mejorado */
+.timelineRow {
+  display: grid;
+  grid-template-columns: 44px 1fr 44px 64px;
+  gap: 10px;
+  align-items: center;
+  padding: 14px 18px;
+  border-radius: 18px;
+  background: rgba(255,255,255,.62);
+  border: 1px solid var(--stroke);
+  backdrop-filter: blur(10px);
+}
+
+.timelineRow input[type="range"] {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(15, 23, 42, .10);
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.timelineRow input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid rgba(255,255,255,.9);
+  cursor: pointer;
+  box-shadow: 
+    0 0 15px rgba(86, 200, 212, 0.8),
+    0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.yearMin, .yearMax {
+  font-weight: 700;
+  color: var(--accent);
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.yearNow {
+  font-weight: 900;
+  color: var(--accent);
+  text-align: right;
+  font-size: 1.1rem;
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+}
+
+/* ===== FILA 2: RESUMEN + STATS ===== */
+.summaryRow {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.summaryTitle {
+  padding: 22px 24px;
+  border-radius: 22px;
+  background: rgba(255,255,255,.62);
+  border: 1px solid var(--stroke);
+  backdrop-filter: blur(10px);
+}
+
+.summaryTitle h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.summaryTitle p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  opacity: 0.9;
+  font-size: 0.95rem;
+}
+
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.statCard {
+  padding: 18px 16px;
+  border-radius: 18px;
+  background: rgba(255,255,255,.62);
+  border: 1px solid var(--stroke);
+  box-shadow: 0 10px 24px rgba(10,20,40,.10);
+  text-align: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+}
+
+.statCard:hover {
+  transform: translateY(-5px);
+  background: rgba(255,255,255,.78);
+  border-color: var(--accent-border);
+}
+
+.statCard .k {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.statCard .v {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--ink);
+}
+
+/* ===== FILA 3: HITOS + GRÁFICO ===== */
+.bottomRow {
+  display: grid;
+  grid-template-columns: 1.1fr 1.6fr;
+  gap: 20px;
+  align-items: stretch;
+  min-height: 380px;
+}
+
+/* Panel de hitos (izquierda) - Menos transparente */
+.hitosPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hitoBox {
+  border-radius: 18px;
+  padding: 20px;
+  background: rgba(255,255,255,.62);
+  border: 1px solid var(--stroke);
+  box-shadow: 0 10px 24px rgba(10,20,40,.10);
+}
+
+.hitoBox .title {
+  font-weight: 700;
+  color: var(--accent);
+  text-shadow: none;
+  margin-bottom: 12px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hitoBox > div:not(.title) {
+  color: var(--ink);
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.hitosList {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 300px;
+}
+
+.hitosList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.hitosList::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.hitosList::-webkit-scrollbar-thumb {
+  background: rgba(0, 229, 255, 0.3);
+  border-radius: 4px;
+}
+
+.hitosList::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 229, 255, 0.5);
+}
+
+.hitoItem {
+  background: rgba(255,255,255,.52);
+  border: 1px solid rgba(18,55,90,.10);
+  border-radius: 14px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(5px);
+}
+
+.hitoItem:hover {
+  transform: translateY(-3px);
+  background: rgba(255,255,255,.76);
+  border-color: var(--accent-border);
+  box-shadow: 0 10px 24px rgba(37,99,235,.10);
+}
+
+.hitoItem.active {
+  background: var(--accent-soft);
+  border-color: var(--accent-border);
+  box-shadow: 0 12px 26px rgba(37,99,235,.14);
+}
+
+.hitoYear {
+  font-weight: 800;
+  color: var(--accent);
+  text-shadow: none;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+
+.hitoItem > div:not(.hitoYear) {
+  color: var(--ink);
+  line-height: 1.4;
+  font-size: 0.9rem;
+}
+
+/* Panel del gráfico (derecha) - Más sólido */
+.chartPanel {
+  padding: 22px;
+  border-radius: 22px;
   position: relative;
-  z-index: 2;
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,.62);
+  border: 1px solid var(--stroke);
+  box-shadow: 0 14px 30px rgba(10,20,40,.12);
+
 }
 
-
-/* ───────── zona desbloqueable ───────── */
-
-.globalBackground{
-  position:fixed;
-  inset:0;
-  background: radial-gradient(circle at top,#00e5ff22,#000 70%);
-  z-index:-1;
+/* ===== TOOLTIP MEJORADO ===== */
+.tooltipBox {
+  padding: 16px 20px;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 15px;
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,.92);
+  color: var(--ink);
+  border: 1px solid var(--stroke);
+  box-shadow: 0 12px 30px rgba(10,20,40,.18);
+  animation: floatTooltip 0.4s ease;
+  max-width: 280px;
 }
 
-.soft{
-  border-radius:18px;
-  overflow:hidden;
+.tooltipBox strong {
+  color: var(--ink);
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  display: block;
 }
 
-.unlockArrow{
-  width:60px;height:60px;
-  margin:20px auto 0;
-  border:2px solid #00e5ff;
-  border-radius:50%;
-  display:grid;place-items:center;
-  cursor:pointer;
-  animation:pulse 2s infinite;
+.tooltipBox br {
+  display: none;
 }
 
-.unlockArrow span{
-  width:18px;height:18px;
-  border-left:3px solid #00e5ff;
-  border-bottom:3px solid #00e5ff;
-  transform:rotate(-45deg);
+.hitoText {
+  display: block;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0, 229, 255, 0.2);
+  border-top: 1px solid rgba(18,55,90,.12);
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
-.unlockArrow.open{transform:rotate(180deg)}
-
-@keyframes pulse{
-  0%,100%{box-shadow:0 0 0 #00e5ff}
-  50%{box-shadow:0 0 18px #00e5ff}
+@keyframes floatTooltip {
+  from { 
+    transform: translateY(10px) scale(0.95); 
+    opacity: 0; 
+  }
+  to { 
+    transform: translateY(0) scale(1); 
+    opacity: 1; 
+  }
 }
 
-.candidatosZone{
-  max-height:0;
-  overflow:hidden;
-  transition:.8s ease;
-  text-align:center;
+/* ===== CURSOR GLOW ===== */
+.cursorGlow {
+  position: fixed;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(37,99,235,.14) 0%, transparent 70%);
+  mix-blend-mode: normal;
+  filter: blur(6px);
+  transform: translate(-50%, -50%);
+  z-index: 9999;
 }
 
-.candidatosZone.show{
-  max-height:400px;
-  padding:40px;
+/* ===== BOTÓN NAVEGACIÓN ===== */
+.nav-to-candidatos {
+  text-align: center;
+  margin: 10px auto;
+  padding: 0 20px;
+  max-width: 1200px;
 }
 
-.cards{
-  display:flex;
-  justify-content:center;
-  gap:30px;
+.nav-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+  box-shadow: 0 12px 28px rgba(37,99,235,.22);
+  border-radius: 50px;
+  padding: 16px 40px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
 }
 
-.card{
-  width:200px;height:260px;
-  border:2px solid #00e5ff;
-  border-radius:18px;
-  backdrop-filter:blur(10px);
-  display:grid;place-items:center;
-  font-weight:700;
+.nav-button:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 
+    0 15px 40px rgba(0, 229, 255, 0.4),
+    0 0 30px rgba(0, 229, 255, 0.3);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .topRow {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .timelineRow {
+    grid-template-columns: 40px 1fr 40px 60px;
+  }
+  
+  .summaryRow {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .statsRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  
+  .bottomRow {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  
+  .hitosPanel {
+    height: 320px;
+  }
+  
+  .panelZone.layout3 {
+    padding: 22px;
+    margin: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .temasRow {
+    justify-content: center;
+  }
+  
+  .temaBtn {
+    padding: 12px 18px;
+    font-size: 0.9rem;
+  }
+  
+  .statsRow {
+    grid-template-columns: 1fr;
+  }
+  
+  .statCard {
+    padding: 16px;
+  }
+  
+  .slideText {
+    font-size: 2rem;
+    left: 30px;
+    bottom: 20px;
+  }
+}
+
+/* ===== EFECTOS GLASS (mantenidos pero optimizados) ===== */
+.soft {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow:
+    0 10px 35px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  transition: all 0.3s ease;
+}
+
+.soft:hover {
+  box-shadow:
+    0 0 40px rgba(0, 229, 255, 0.25),
+    0 15px 50px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }

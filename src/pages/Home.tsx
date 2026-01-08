@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import '../styles/Home.css';
 import { motion } from 'framer-motion';
 import { partidos } from '../data/data'; 
@@ -35,8 +35,15 @@ const positions = [
 // Combinamos posiciones con partidos
 const bubbleItems = positions.map((pos, i) => {
   const partido = partidos[i % partidos.length];
-  return { ...pos, label: partido.nombre, logo: partido.logo };
+  return {
+    ...pos,
+    label: partido.nombre,
+    logo: partido.logo,
+    candidatePhoto: partido.candidato?.foto,
+    candidateName: partido.candidato?.nombre,
+  };
 });
+
 
 // --- NOMBRES DE LAS 5 SUB-BOLAS ---
 const subBolas = [
@@ -64,6 +71,15 @@ const WindyBubble: React.FC<{
       duration: 3 + Math.random() * 2,
     };
   }, []);
+  const [showCandidate, setShowCandidate] = useState(false);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setShowCandidate((v) => !v);
+    }, 2000);
+    return () => clearInterval(id);
+  }, []);
+
 
   const variants = {
     hidden: { y: -900, x: item.x, opacity: 0, scale: 0.5, rotate: 0 },
@@ -130,25 +146,95 @@ const WindyBubble: React.FC<{
           padding: '6px',
           overflow: 'visible',
           display: 'flex',
+          flexDirection: 'column',     // 👈 CLAVE
           alignItems: 'center',
           justifyContent: 'center',
-          boxShadow: isSelected ? '0 0 50px rgba(0,0,0,0.3)' : '0 0 15px rgba(148, 163, 184, 0.35)',
+          gap: '6px',                  // espacio imagen-texto
+          boxShadow: isSelected
+            ? '0 0 50px rgba(0,0,0,0.3)'
+            : '0 0 15px rgba(148, 163, 184, 0.35)',
           position: 'absolute',
           cursor: 'pointer',
           pointerEvents: 'auto',
         }}
-        transition={animationState === "falling" ? { type: "spring", stiffness: 80, damping: 15, delay: delay } : undefined}
-        onAnimationComplete={(definition) => { if (definition === "falling") setAnimationState("floating"); }}
-        whileHover={!isSelected ? { scale: 1.25, zIndex: 100, rotate: 0 } : {}}
+        transition={
+          animationState === "falling"
+            ? { type: "spring", stiffness: 80, damping: 15, delay: delay }
+            : undefined
+        }
+        onAnimationComplete={(definition) => {
+          if (definition === "falling") setAnimationState("floating");
+        }}
+        whileHover={!isSelected ? { scale: 1.25, zIndex: 100 } : {}}
       >
-        <img 
-          src={item.logo} 
-          alt={item.label}
-          style={{ width: '80%', height: '80%', objectFit: 'contain', pointerEvents: 'none' }}
-          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-        />
-        {!item.logo && <span className="text-[9px] text-black font-bold text-center leading-tight">{item.label}</span>}
+        {/* IMAGEN (logo ↔ candidato) */}
+        <div
+          style={{
+            width: "70%",
+            height: "70%",
+            position: "relative",
+            pointerEvents: "none",
+          }}
+        >
+          {/* Logo del partido */}
+          <motion.img
+            src={item.logo}
+            alt={item.label}
+            animate={{ opacity: showCandidate ? 0 : 1 }}
+            transition={{ duration: 0.35 }}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+              position: "absolute",
+              inset: 0,
+            }}
+            onError={(e) => ((e.target as HTMLImageElement).style.display = "none")}
+          />
+
+          {/* Foto del candidato */}
+          <motion.img
+            src={item.candidatePhoto}
+            alt={item.candidateName ?? "Candidato"}
+            animate={{ opacity: showCandidate ? 1 : 0 }}
+            transition={{ duration: 0.35 }}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              borderRadius: "50%",
+              position: "absolute",
+              inset: 0,
+            }}
+            onError={() => {
+              // Si no hay foto, que nunca “gane” el candidato (se queda en logo)
+              setShowCandidate(false);
+            }}
+          />
+        </div>
+
+
+        {/* NOMBRE DEL PARTIDO */}
+        {isSelected && (
+          <motion.span
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ type: "spring", stiffness: 160, damping: 14 }}
+            style={{
+              fontSize: '11px',
+              fontWeight: 800,
+              color: '#111827',
+              textAlign: 'center',
+              lineHeight: 1.1,
+              whiteSpace: 'nowrap',
+              pointerEvents: 'none',
+            }}
+          >
+            {showCandidate ? (item.candidateName ?? item.label) : item.label}
+          </motion.span>
+        )}
       </motion.div>
+
     </>
   );
 };
