@@ -307,14 +307,37 @@ const Home: React.FC = () => {
                 pointerEvents: "auto",
               }}
             >
-              <motion.div style={{ transform: "translate(150px, 20px)" }}>
+              <motion.div
+                style={{
+                  transform: "translate(150px, 20px)",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: "6px",
+                }}
+              >
                 <AddCandidateBubble
                   active={isAddingSecond}
                   onClick={() => {
                     if (selectedIndex !== null) setIsAddingSecond((v) => !v)
                   }}
                 />
+
+                <span
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    color: isAddingSecond ? "#dc2626" : "#4f46e5",
+                    lineHeight: 1,
+                    userSelect: "none",
+                    textAlign: "center",
+                  }}
+                >
+                  {isAddingSecond ? "Seleccione otro candidato" : "Comparar"}
+                </span>
+
               </motion.div>
+
             </motion.div>
           )}
         </div>
